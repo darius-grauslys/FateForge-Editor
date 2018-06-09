@@ -23,15 +23,24 @@ namespace FateForge
         private int _questCount = 0;
         private string _questTitleRoot = "Quest ";
         private QuestEditor _newEditor;
+        private TreeNode _activeNode;
 
         public Form1()
         {
             InitializeComponent();
             NewPage();
-            Managers.EventFieldManager.Initalize();
+            FieldUpdateManager.Initalize();
 
             panel1.ControlAdded += (s, e) => CollapseManager.ResizeChilds(panel1);
             panel1.ControlRemoved += (s, e) => CollapseManager.ResizeChilds(panel1);
+            panelConvoEditor.ControlAdded += (s, e) => CollapseManager.ResizeChilds(panelConvoEditor);
+            panelConvoEditor.ControlRemoved += (s, e) => CollapseManager.ResizeChilds(panelConvoEditor);
+
+            treeView1.NodeMouseClick += (s, e) => ChangeConvoNodeFocus(e.Node);
+
+            Resize += (s, e) => {
+                CollapseManager.ResizeChilds(panelConvoEditor);
+            };
         }
 
         private void newQuestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -55,6 +64,15 @@ namespace FateForge
         private void itemEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             ItemEditor.Show();
+        }
+
+        public void ChangeConvoNodeFocus(TreeNode node)
+        {
+            tabControl1.SelectTab(1);
+            _activeNode = node;
+
+            panelConvoEditor.Controls.Clear();
+            panelConvoEditor.Controls.Add(((ConvoEditor)node.Tag));
         }
 
         private void button1_Click(object sender, EventArgs e)
@@ -110,6 +128,24 @@ namespace FateForge
         private void newNPCToolStripMenuItem_Click(object sender, EventArgs e)
         {
             tabControl1.SelectTab(6);
+        }
+
+        private void newConvoButton_Click(object sender, EventArgs e)
+        {
+            TreeNode node = new TreeNode("NewConvo" + treeView1.Nodes.Count);
+
+            node.Tag = new ConvoEditor(this, null, node) { Dock = DockStyle.Fill };
+
+            treeView1.Nodes.Add(node);
+        }
+
+        private void button2_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                ChangeConvoNodeFocus(_activeNode.Parent);
+            }
+            catch { }
         }
     }
 }

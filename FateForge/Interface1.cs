@@ -6,11 +6,13 @@ using System.Threading.Tasks;
 
 namespace FateForge
 {
-    interface IIndependentResize
+    public interface IIndependentResize
     {
         /// <summary>
         /// This method resizes the control on its own terms.
         /// </summary>
         void IndependentResize();
+        void IndependentCollapse(bool collapseState);
+        int GetDesiredSize();
     }
 }

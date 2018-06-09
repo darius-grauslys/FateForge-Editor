@@ -90,6 +90,12 @@
     <Compile Include="Controls\AmountField.Designer.cs">
       <DependentUpon>AmountField.cs</DependentUpon>
     </Compile>
+    <Compile Include="ConvoEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="ConvoEditor.Designer.cs">
+      <DependentUpon>ConvoEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="DataTypes\Item.cs" />
     <Compile Include="Controls\DeletionFieldContainer.cs">
       <SubType>UserControl</SubType>
@@ -143,7 +149,7 @@
     </Compile>
     <Compile Include="Managers\ComboBoxValues.cs" />
     <Compile Include="Managers\ConditionFieldManager.cs" />
-    <Compile Include="Managers\EventFieldManager.cs" />
+    <Compile Include="Managers\FieldUpdateManager.cs" />
     <Compile Include="Managers\ItemManager.cs" />
     <Compile Include="Controls\ObjectiveField.cs">
       <SubType>UserControl</SubType>
@@ -206,6 +212,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\DeletionListControl.resx">
       <DependentUpon>DeletionListControl.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ConvoEditor.resx">
+      <DependentUpon>ConvoEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ItemEditor.resx">
       <DependentUpon>ItemEditor.cs</DependentUpon>

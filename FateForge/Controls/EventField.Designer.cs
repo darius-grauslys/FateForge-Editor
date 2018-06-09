@@ -56,7 +56,7 @@
             this.tableLayoutPanel1.RowCount = 2;
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 42F));
             this.tableLayoutPanel1.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel1.Size = new System.Drawing.Size(566, 485);
+            this.tableLayoutPanel1.Size = new System.Drawing.Size(580, 286);
             this.tableLayoutPanel1.TabIndex = 0;
             // 
             // tableLayoutPanel2
@@ -73,7 +73,7 @@
             this.tableLayoutPanel2.RowCount = 1;
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel2.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 36F));
-            this.tableLayoutPanel2.Size = new System.Drawing.Size(560, 36);
+            this.tableLayoutPanel2.Size = new System.Drawing.Size(574, 36);
             this.tableLayoutPanel2.TabIndex = 0;
             // 
             // label1
@@ -94,11 +94,11 @@
             this.tableLayoutPanel5.Controls.Add(this.flowLayoutPanel1, 1, 0);
             this.tableLayoutPanel5.Controls.Add(this.comboBox1, 0, 0);
             this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(184, 3);
+            this.tableLayoutPanel5.Location = new System.Drawing.Point(188, 3);
             this.tableLayoutPanel5.Name = "tableLayoutPanel5";
             this.tableLayoutPanel5.RowCount = 1;
             this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(373, 30);
+            this.tableLayoutPanel5.Size = new System.Drawing.Size(383, 30);
             this.tableLayoutPanel5.TabIndex = 2;
             // 
             // flowLayoutPanel1
@@ -107,15 +107,15 @@
             this.flowLayoutPanel1.Controls.Add(this.button1);
             this.flowLayoutPanel1.Dock = System.Windows.Forms.DockStyle.Fill;
             this.flowLayoutPanel1.FlowDirection = System.Windows.Forms.FlowDirection.RightToLeft;
-            this.flowLayoutPanel1.Location = new System.Drawing.Point(189, 3);
+            this.flowLayoutPanel1.Location = new System.Drawing.Point(194, 3);
             this.flowLayoutPanel1.Name = "flowLayoutPanel1";
-            this.flowLayoutPanel1.Size = new System.Drawing.Size(181, 24);
+            this.flowLayoutPanel1.Size = new System.Drawing.Size(186, 24);
             this.flowLayoutPanel1.TabIndex = 0;
             // 
             // button2
             // 
             this.button2.BackColor = System.Drawing.Color.Firebrick;
-            this.button2.Location = new System.Drawing.Point(156, 3);
+            this.button2.Location = new System.Drawing.Point(161, 3);
             this.button2.Name = "button2";
             this.button2.Size = new System.Drawing.Size(22, 23);
             this.button2.TabIndex = 1;
@@ -125,7 +125,7 @@
             // 
             // button1
             // 
-            this.button1.Location = new System.Drawing.Point(128, 3);
+            this.button1.Location = new System.Drawing.Point(133, 3);
             this.button1.Name = "button1";
             this.button1.Size = new System.Drawing.Size(22, 23);
             this.button1.TabIndex = 0;
@@ -176,7 +176,7 @@
             "Weather"});
             this.comboBox1.Location = new System.Drawing.Point(3, 3);
             this.comboBox1.Name = "comboBox1";
-            this.comboBox1.Size = new System.Drawing.Size(180, 24);
+            this.comboBox1.Size = new System.Drawing.Size(185, 24);
             this.comboBox1.TabIndex = 0;
             // 
             // panel1
@@ -188,7 +188,7 @@
             this.panel1.Location = new System.Drawing.Point(3, 45);
             this.panel1.MinimumSize = new System.Drawing.Size(560, 437);
             this.panel1.Name = "panel1";
-            this.panel1.Size = new System.Drawing.Size(560, 437);
+            this.panel1.Size = new System.Drawing.Size(574, 437);
             this.panel1.TabIndex = 1;
             // 
             // EventField
@@ -196,9 +196,9 @@
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.Controls.Add(this.tableLayoutPanel1);
-            this.MinimumSize = new System.Drawing.Size(566, 485);
+            this.MinimumSize = new System.Drawing.Size(580, 286);
             this.Name = "EventField";
-            this.Size = new System.Drawing.Size(566, 485);
+            this.Size = new System.Drawing.Size(580, 286);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
             this.tableLayoutPanel2.PerformLayout();

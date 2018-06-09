@@ -31,7 +31,7 @@ namespace FateForge
         {
             try
             {
-                EventFieldManager.FieldHandlers[comboBox1.Text](panel1);
+                FieldUpdateManager.EventFieldHandlers[comboBox1.Text](panel1);
                 IndependentResize();
             }
             catch
@@ -40,21 +40,22 @@ namespace FateForge
 
         private void button1_Click(object sender, EventArgs e)
         {
-            _isMin = !_isMin;
+            IndependentCollapse(CollapseManager.FlipCollapseButton_Check((Button)sender));
+            //_isMin = !_isMin;
 
-            if (button1.Text == "-")
-            {
-                button1.Text = "o";
-                MinimumSize = new Size(Width, 36);
-                Height = 36;
-            }
-            else
-            {
-                button1.Text = "-";
-                MinimumSize = _initSize;
-                IndependentResize();
-            }
-            
+            //if (button1.Text == "-")
+            //{
+            //    button1.Text = "o";
+            //    MinimumSize = new Size(Width, 36);
+            //    Height = 36;
+            //}
+            //else
+            //{
+            //    button1.Text = "-";
+            //    MinimumSize = _initSize;
+            //    IndependentResize();
+            //}
+
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -66,13 +67,21 @@ namespace FateForge
         {
             int height = 40;
 
-            if (!_isMin)
-            {
-                CollapseManager.WrapIndependentSize(this, panel1);
-            }
+            CollapseManager.WrapIndependentSize(this, panel1);
 
             //if (!_isMin)
             //    CollapseManager.IndependentResize(this, panel1);
+        }
+
+        public void IndependentCollapse(bool collapseState)
+        {
+            List<IIndependentResize> resizers = CollapseManager.ScanForResizers(panel1.Controls);
+            CollapseManager.IndependentCollapse(collapseState, this, new List<Panel> { panel1 }, 36, resizers.ToArray());
+        }
+
+        public int GetDesiredSize()
+        {
+            return _initSize.Height;
         }
     }
 }

@@ -32,7 +32,7 @@ namespace FateForge
 
         private void button1_Click(object sender, EventArgs e)
         {
-            CollapseManager.Collapse(button1, this, _initSize);
+            IndependentCollapse(CollapseManager.FlipCollapseButton_Check((Button)sender));
             //CollapseManager.ResizeChilds(panel1);
         }
 
@@ -57,6 +57,17 @@ namespace FateForge
         public void IndependentResize()
         {
             CollapseManager.WrapIndependentSize(this, panel1, 84);
+        }
+
+        public void IndependentCollapse(bool collapseState)
+        {
+            List<IIndependentResize> resizers = CollapseManager.ScanForResizers(panel1.Controls);
+            CollapseManager.IndependentCollapse(collapseState, this, new List<Panel> { panel1 }, 36, resizers.ToArray());
+        }
+
+        public int GetDesiredSize()
+        {
+            return _privateSize;
         }
     }
 }

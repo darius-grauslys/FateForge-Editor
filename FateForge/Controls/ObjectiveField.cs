@@ -11,11 +11,21 @@ using FateForge.Managers;
 
 namespace FateForge
 {
-    public partial class ObjectiveField : UserControl
+    public partial class ObjectiveField : UserControl, IIndependentResize
     {
-        public ObjectiveField()
+        private Size _initSize = new Size(0,0);
+        private List<Panel> _panelPackage = new List<Panel>();
+
+        public ObjectiveField(bool _nameReadOnly=false)
         {
             InitializeComponent();
+
+            //_panelPackage.Add(panel2);
+            _panelPackage.Add(panel3);
+            _panelPackage.Add(panel4);
+
+            textBox1.ReadOnly = _nameReadOnly;
+            _initSize = MinimumSize;
 
             Resize += ObjectiveField_Resize;
             panel2.ControlRemoved += (s, o) => { PanelResize(panel2); };
@@ -24,6 +34,12 @@ namespace FateForge
             panel3.ControlAdded += (s, o) => { PanelResize(panel3); };
             panel4.ControlRemoved += (s, o) => { PanelResize(panel4, 20); };
             panel4.ControlAdded += (s, o) => { PanelResize(panel4, 20); };
+            comboBox1.SelectedValueChanged += ComboBox1_SelectedValueChanged;
+        }
+
+        private void ComboBox1_SelectedValueChanged(object sender, EventArgs e)
+        {
+            FieldUpdateManager.ObjectiveFieldHandlers[comboBox1.Text](panel2);
         }
 
         private void PanelResize(Panel panel, int offset=12)
@@ -42,20 +58,29 @@ namespace FateForge
 
         private void button2_Click(object sender, EventArgs e)
         {
-            if (button2.Text == "-")
-            {
-                button2.Text = "o";
-                tableLayoutPanel1.RowStyles[1] = new RowStyle(SizeType.Percent, 0);
-                Height = 46;
-                tableLayoutPanel2.RowStyles[1] = new RowStyle(SizeType.Percent, 0);
-            }
-            else
-            {
-                button2.Text = "-";
-                tableLayoutPanel1.RowStyles[1] = new RowStyle(SizeType.Percent, 31.97f);
-                Height = (int)(Form1.DEFAULT_NEST_SIZE * 2.5);
-                tableLayoutPanel2.RowStyles[1] = new RowStyle(SizeType.Percent, 100);
-            }
+            Button b = (Button)sender;
+            bool _collapseType = (b.Text == "-");
+            
+            CollapseManager.FlipCollapseButton(b, _collapseType);
+            IndependentCollapse(_collapseType);
+            
+
+            //CollapseManager.Collapse(button1, this, _initSize, 60);
+
+            //if (button2.Text == "-")
+            //{
+            //    button2.Text = "o";
+            //    tableLayoutPanel1.RowStyles[1] = new RowStyle(SizeType.Percent, 0);
+            //    Height = 46;
+            //    tableLayoutPanel2.RowStyles[1] = new RowStyle(SizeType.Percent, 0);
+            //}
+            //else
+            //{
+            //    button2.Text = "-";
+            //    tableLayoutPanel1.RowStyles[1] = new RowStyle(SizeType.Percent, 31.97f);
+            //    Height = (int)(Form1.DEFAULT_NEST_SIZE * 2.5);
+            //    tableLayoutPanel2.RowStyles[1] = new RowStyle(SizeType.Percent, 100);
+            //}
         }
 
         private void button6_Click(object sender, EventArgs e)
@@ -157,6 +182,34 @@ namespace FateForge
             conditionField.Location = new Point(2, positionY);
             conditionField.Resize += ObjectiveField_Resize;
             panel4.Controls.Add(conditionField);
+        }
+
+        public void IndependentResize()
+        {
+            CollapseManager.IndependentResize(this, _panelPackage);
+        }
+
+        public void IndependentCollapse(bool collapseState)
+        {
+            List<IIndependentResize> resizers = new List<IIndependentResize>();
+            foreach (EventField ef in panel3.Controls)
+                resizers.Add((IIndependentResize)ef);
+            foreach (ConditionField cf in panel4.Controls)
+                resizers.Add((IIndependentResize)cf);
+
+            CollapseManager.IndependentCollapse(collapseState, this, _panelPackage, 40, resizers.ToArray());
+
+            if (collapseState)
+                tableLayoutPanel1.RowStyles[1].Height = 0;
+            else
+                tableLayoutPanel1.RowStyles[1].Height = 30;
+
+            //CollapseManager.ResizeChilds;
+        }
+
+        public int GetDesiredSize()
+        {
+            return _initSize.Height;
         }
     }
 }
