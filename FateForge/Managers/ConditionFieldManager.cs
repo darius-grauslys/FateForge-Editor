@@ -213,12 +213,11 @@ namespace FateForge.Managers
             _newEntry.Click += (s, a) => 
             {
                 _container.Controls.Add(
-                    new DeletionFieldContainer(new List<Control>()
-                    {
+                    new DeletionFieldContainer(false, 
                         new ComboField("Mob Type", ComboBoxValues.ComboBoxDictionary["Mob Type"].ToArray()),
                         new StringValueField("Name"),
                         new AmountField()
-                    })
+                    )
                     );
             };
 

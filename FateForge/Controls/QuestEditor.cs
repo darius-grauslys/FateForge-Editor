@@ -8,12 +8,15 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
+using FateForge.Managers;
 
 namespace FateForge
 {
     public partial class QuestEditor : UserControl
     {
         ElementContainer _baseElementContainer = new ElementContainer();
+
+        public string QuestName { get => questNameTextbox.Text; }
 
         public QuestEditor()
         {
@@ -22,8 +25,16 @@ namespace FateForge
             questNameTextbox.TextChanged += QuestTitle_TextChanged;
             Resize += QuestEditor_Resize;
 
-            eventField1.Resize += QuestEditor_Resize;
+            ObjectiveField _objf = new ObjectiveField();
+
+            panel2.Controls.Add(_objf);
+
+            _objf.Resize += QuestEditor_Resize;
             panel2.ControlRemoved += QuestEditor_Resize;
+
+            questNameTextbox.Text = QuestManager.GetNewQuestName();
+
+            QuestManager.AddNewQuest(this);
             //panel2.ControlAdded += Panel2_ControlAdded;
         }
 
@@ -44,6 +55,15 @@ namespace FateForge
         }
 
         private void QuestTitle_TextChanged(object sender, EventArgs e)
+        {
+            if (QuestManager.IsOtherNameExisting(this))
+            {
+                MessageBox.Show("This quest name is already in use! Please change to avoid issues.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
+            }
+            UpdateParentTagName();
+        }
+
+        public void UpdateParentTagName()
         {
             if (Parent is TabPage)
             {

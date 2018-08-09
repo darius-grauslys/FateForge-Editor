@@ -23,7 +23,7 @@ namespace FateForge
 
         private bool _testAllClicks = false;
 
-        public DeletionFieldContainer(List<Control> _addedControls, bool _testAllClicks = false)
+        public DeletionFieldContainer( bool _testAllClicks = false, params Control[] _addedControls)
         {
             InitializeComponent();
 

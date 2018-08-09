@@ -30,8 +30,8 @@ namespace FateForge
             Resize += ObjectiveField_Resize;
             panel2.ControlRemoved += (s, o) => { PanelResize(panel2); };
             panel2.ControlAdded += (s, o) => { PanelResize(panel2); };
-            panel3.ControlRemoved += (s, o) => { PanelResize(panel3); };
-            panel3.ControlAdded += (s, o) => { PanelResize(panel3); };
+            panel3.ControlRemoved += (s, o) => { PanelResize(panel3); IndependentResize(); };
+            panel3.ControlAdded += (s, o) => { PanelResize(panel3); IndependentResize(); };
             panel4.ControlRemoved += (s, o) => { PanelResize(panel4, 20); };
             panel4.ControlAdded += (s, o) => { PanelResize(panel4, 20); };
             comboBox1.SelectedValueChanged += ComboBox1_SelectedValueChanged;
@@ -49,7 +49,7 @@ namespace FateForge
 
         private void ObjectiveField_Resize(object sender, EventArgs e)
         {
-            //CollapseManager.IndependentResize(this, 12, panel2, panel3, panel4);
+            //IndependentResize();
 
             CollapseManager.ResizeChilds(panel2);
             CollapseManager.ResizeChilds(panel3);

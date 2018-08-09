@@ -55,7 +55,7 @@ namespace FateForge.Managers
             {"Block", ObjectiveFieldUpdate_Block },
             {"Mob Kill", ObjectiveFieldUpdate_MobKill },
             {"Action", ObjectiveFieldUpdate_Action },
-            {"Die", ObjectiveFieldUpdate_Die },
+            {"Death", ObjectiveFieldUpdate_Die },
             {"Crafting", ObjectiveFieldUpdate_Craft },
             {"Smelting", ObjectiveFieldUpdate_Smelt },
             {"Taming", ObjectiveFieldUpdate_Tame },
@@ -400,7 +400,9 @@ namespace FateForge.Managers
 
             control.Resize += (s, a) =>
             {
-                objField.Size = new System.Drawing.Size(control.Width - 18, (control.Height / control.Controls.Count) - 4);
+                int countBuffer = (control.Controls.Count != 0 ) ? control.Controls.Count : 1;
+
+                objField.Size = new System.Drawing.Size(control.Width - 18, (control.Height / countBuffer) - 4);
                 int index = control.Controls.IndexOf(objField);
                 int offset = 0;
                 for (int i = 0; i < index; i++)

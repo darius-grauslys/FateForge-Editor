@@ -27,7 +27,7 @@ namespace FateForge
 
         private void button1_Click(object sender, EventArgs e)
         {
-            Form1.ItemEditor.Show();
+            ((Form1)Form1.ActiveForm).SwitchTab(TabPageEnum.Item);
         }
     }
 }

@@ -47,7 +47,7 @@ namespace FateForge
             ItemDescriptorControl _idc = new ItemDescriptorControl(_item);
             _idc.Dock = DockStyle.Fill;
 
-            DeletionFieldContainer _df = new DeletionFieldContainer(new List<Control>() { _itemLabel }, true);
+            DeletionFieldContainer _df = new DeletionFieldContainer(true, _itemLabel );
 
             _df.Tag = _idc;
             _item.FieldsUpdated += (s, o) => 

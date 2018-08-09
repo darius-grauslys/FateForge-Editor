@@ -40,7 +40,7 @@ namespace FateForge
                 _controls.Add(child);
             }
 
-            DeletionFieldContainer _df = new DeletionFieldContainer(_controls, _checkAllClicks);
+            DeletionFieldContainer _df = new DeletionFieldContainer(_checkAllClicks, _controls.ToArray());
 
             panel1.Controls.Add(_df);
         }

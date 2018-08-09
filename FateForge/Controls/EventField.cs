@@ -23,8 +23,8 @@ namespace FateForge
             _initSize = MinimumSize;
 
             comboBox1.TextChanged += ComboBox1_SelectedValueChanged;
-            panel1.ControlAdded += (s, o) => { CollapseManager.ResizeChilds(panel1); };
-            panel1.ControlRemoved += (s, o) => { CollapseManager.ResizeChilds(panel1); };
+            panel1.ControlAdded += (s, o) => { CollapseManager.ResizeChilds(panel1); IndependentResize();  };
+            panel1.ControlRemoved += (s, o) => { CollapseManager.ResizeChilds(panel1); IndependentResize(); };
         }
 
         private void ComboBox1_SelectedValueChanged(object sender, EventArgs e)

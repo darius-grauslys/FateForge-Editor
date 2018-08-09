@@ -140,11 +140,9 @@ namespace FateForge
             StringValueField _sf = new StringValueField("Val");
 
             DeletionFieldContainer _df = new DeletionFieldContainer(
-                new List<Control>()
-                {
-                    _cf,
-                    _sf
-                }
+                false,
+                _cf,
+                _sf
                 );
 
             _df.Resize += (s, o) =>
@@ -167,11 +165,9 @@ namespace FateForge
         {
             StringValueField _sf = new StringValueField("Lore_" + _panel2.Controls.Count);
 
-            DeletionFieldContainer _df = new DeletionFieldContainer(
-                new List<Control>()
-                {
-                    _sf
-                }
+            DeletionFieldContainer _df = new DeletionFieldContainer( 
+                false,
+                _sf
                 );
 
             _df.Resize += (s, o) => 

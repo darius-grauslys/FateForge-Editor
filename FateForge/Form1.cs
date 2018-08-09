@@ -19,9 +19,7 @@ namespace FateForge
         private static ItemEditor _itemEditor = new ItemEditor();
 
         public static ItemEditor ItemEditor { get => _itemEditor; }
-
-        private int _questCount = 0;
-        private string _questTitleRoot = "Quest ";
+        
         private QuestEditor _newEditor;
         private TreeNode _activeNode;
 
@@ -36,6 +34,14 @@ namespace FateForge
             panelConvoEditor.ControlAdded += (s, e) => CollapseManager.ResizeChilds(panelConvoEditor);
             panelConvoEditor.ControlRemoved += (s, e) => CollapseManager.ResizeChilds(panelConvoEditor);
 
+            activeNodeTextboxName.TextChanged += (s, e) =>
+            {
+                if (_activeNode != null)
+                {
+                    _activeNode.Text = activeNodeTextboxName.Text;
+                }
+            };
+
             treeView1.NodeMouseClick += (s, e) => ChangeConvoNodeFocus(e.Node);
 
             Resize += (s, e) => {
@@ -49,27 +55,33 @@ namespace FateForge
             NewPage();
         }
 
+        public void SwitchTab(TabPageEnum type)
+        {
+            tabControl1.SelectTab((int)type);
+        }
+
         private void NewPage()
         {
-            _questCount++;
             _newEditor = new QuestEditor();
             _newEditor.Dock = DockStyle.Fill;
             TabPage newPage = new TabPage();
             newPage.BackColor = Color.Transparent;
-            newPage.Text = _questTitleRoot + _questCount;
+            newPage.Text = _newEditor.QuestName;
             newPage.Controls.Add(_newEditor);
             questControl.TabPages.Add(newPage);
         }
 
         private void itemEditorToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ItemEditor.Show();
+            tabControl1.SelectTab(3);
         }
 
         public void ChangeConvoNodeFocus(TreeNode node)
         {
             tabControl1.SelectTab(1);
             _activeNode = node;
+
+            activeNodeTextboxName.Text = _activeNode.Text;
 
             panelConvoEditor.Controls.Clear();
             panelConvoEditor.Controls.Add(((ConvoEditor)node.Tag));
@@ -85,7 +97,7 @@ namespace FateForge
             ItemDescriptorControl _idc = new ItemDescriptorControl(_item);
             _idc.Dock = DockStyle.Fill;
 
-            DeletionFieldContainer _df = new DeletionFieldContainer(new List<Control>() { _itemLabel }, true);
+            DeletionFieldContainer _df = new DeletionFieldContainer(true, _itemLabel);
 
             _df.Tag = _idc;
             _item.FieldsUpdated += (s, o) =>

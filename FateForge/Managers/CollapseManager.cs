@@ -134,7 +134,7 @@ namespace FateForge.Managers
 
             CollapseManager.ResizeChilds(panel);
             foreach (Control c in panel.Controls)
-                height += (c.Size.Height + 12)/panel.Controls.Count;
+                height += (c.Size.Height + 12);
 
             if (height == initHeight)
                 if (interest is IIndependentResize)
