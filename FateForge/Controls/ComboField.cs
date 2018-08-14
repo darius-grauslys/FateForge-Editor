@@ -7,25 +7,50 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
+using FateForge.Managers;
 
 namespace FateForge
 {
-    public partial class ComboField : UserControl
+    public partial class ComboField : UserControl, IXmlSerializable
     {
+        private string _comboFieldType = "";
+
         /// <summary>
         /// The combo selected by the user.
         /// </summary>
-        public string SelectedCombo { get => comboBox1.Text; }
+        public string SelectedCombo { get => comboBox1.Text; private set => comboBox1.Text = value; }
+        private string ComboFieldType { get => _comboFieldType; set => _comboFieldType = value; }
 
-        public ComboField(string _valueName = "Type", object[] _items = null)
+        public ComboField(string _valueName = "Type", string _comboFieldType="" )
         {
             InitializeComponent();
 
-            if (_items == null)
-                _items = new object[0];
-
             label1.Text = _valueName;
-            comboBox1.Items.AddRange(_items);
+            if (ComboBoxValues.ComboBoxDictionary.ContainsKey(_comboFieldType))
+                comboBox1.Items.AddRange(ComboBoxValues.ComboBoxDictionary[_comboFieldType].ToArray());
+
+            ComboFieldType = _comboFieldType;
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            reader.MoveToContent();
+            ComboFieldType = reader.GetAttribute("ComboFieldType");
+            SelectedCombo = reader.GetAttribute("SelectedCombo");
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("ComboFieldType", ComboFieldType);
+            writer.WriteAttributeString("SelectedCombo", SelectedCombo);
         }
     }
 }

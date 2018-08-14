@@ -8,13 +8,20 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FateForge.Managers;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
+using FateForge.Managers.IO;
 
 namespace FateForge
 {
-    public partial class ObjectiveField : UserControl, IIndependentResize
+    public partial class ObjectiveField : UserControl, IIndependentResize, IXmlSerializable
     {
         private Size _initSize = new Size(0,0);
         private List<Panel> _panelPackage = new List<Panel>();
+
+        public string SelectedValue { get => comboBox1.Text; private set => comboBox1.Text = value; }
+        public string ObjectiveName { get => textBox1.Text; private set => textBox1.Text = value; }
 
         public ObjectiveField(bool _nameReadOnly=false)
         {
@@ -115,8 +122,6 @@ namespace FateForge
 
         private void button7_Click(object sender, EventArgs e)
         {
-            EventField eventField = new EventField();
-
             //if (panel3.Height < 250)
             //{
             //    Button escapeButton = new Button();
@@ -128,16 +133,21 @@ namespace FateForge
             //    panel3.Controls.Add(escapeButton);
             //    return;
             //}
-            
-            eventField.Size = new Size(panel3.Width-12, panel3.Height);
+            AddNewEventField(new EventField());
+        }
+
+        private void AddNewEventField(EventField _ef)
+        {
+            _ef.Size = new Size(panel3.Width - 12, panel3.Height);
 
             int positionY = 0;
             foreach (Control c in panel3.Controls)
                 positionY += c.Height + 2 - panel3.VerticalScroll.Value;
 
-            eventField.Location = new Point(2, positionY);
-            eventField.Resize += ObjectiveField_Resize;
-            panel3.Controls.Add(eventField);
+            _ef.Location = new Point(2, positionY);
+            _ef.Resize += ObjectiveField_Resize;
+            _ef.Parent = panel3;
+            panel3.Controls.Add(_ef);
         }
 
         private void EscapeButton_Click(object sender, EventArgs e)
@@ -171,17 +181,21 @@ namespace FateForge
 
         private void button8_Click(object sender, EventArgs e)
         {
-            ConditionField conditionField = new ConditionField();
+            AddNewConditionField(new ConditionField());
+        }
 
-            conditionField.Size = new Size(panel4.Width - 20, Form1.DEFAULT_NEST_SIZE/4);
+        private void AddNewConditionField(ConditionField _cf)
+        {
+            _cf.Size = new Size(panel4.Width - 20, Form1.DEFAULT_NEST_SIZE / 4);
 
             int positionY = 0;
             foreach (Control c in panel4.Controls)
                 positionY += c.Height + 2 - panel4.VerticalScroll.Value;
 
-            conditionField.Location = new Point(2, positionY);
-            conditionField.Resize += ObjectiveField_Resize;
-            panel4.Controls.Add(conditionField);
+            _cf.Location = new Point(2, positionY);
+            _cf.Resize += ObjectiveField_Resize;
+            _cf.Parent = panel4;
+            panel4.Controls.Add(_cf);
         }
 
         public void IndependentResize()
@@ -210,6 +224,82 @@ namespace FateForge
         public int GetDesiredSize()
         {
             return _initSize.Height;
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            reader.MoveToContent();
+            SelectedValue = reader.GetAttribute("SelectedValue");
+            ObjectiveName = reader.GetAttribute("ObjectiveName");
+            panel2.Controls.Clear();
+            reader.ReadStartElement();
+
+            XmlReader inner;
+
+            //reader.ReadStartElement();
+            if (!reader.IsEmptyElement && reader.Name == "Conditions")
+            {
+                //reader.ReadStartElement();
+                inner = reader.ReadSubtree();
+                while (inner.Read())
+                {
+                    ConditionField _cf = new ConditionField();
+
+                    _cf.ReadXml(inner.ReadSubtree());
+
+                    AddNewConditionField(_cf);
+                }
+            }
+            reader.ReadEndElement();
+            //reader.ReadEndElement();
+            //reader.ReadStartElement();
+            if (!reader.IsEmptyElement && reader.Name == "Events")
+            {
+                //reader.ReadStartElement();
+                inner = reader.ReadSubtree();
+                while (inner.Read())
+                {
+                    EventField _ef = new EventField();
+
+                    _ef.ReadXml(inner.ReadSubtree());
+
+                    AddNewEventField(_ef);
+                }
+            }
+            reader.ReadEndElement();
+            //reader.ReadEndElement();
+            //reader.ReadStartElement();
+            if (!reader.IsEmptyElement && reader.Name == "Parameters")
+            {
+                //reader.ReadStartElement();
+                panel2.Controls.AddRange(ImportManager.GetControlListFromXml(this, reader).ToArray());
+            }
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("SelectedValue", SelectedValue);
+            writer.WriteAttributeString("ObjectiveName", ObjectiveName);
+            writer.WriteStartElement("Conditions");
+
+            ExportManager.ExportControlList(writer, panel4.Controls);
+
+            writer.WriteEndElement();
+            writer.WriteStartElement("Events");
+
+            ExportManager.ExportControlList(writer, panel3.Controls);
+
+            writer.WriteEndElement();
+            writer.WriteStartElement("Parameters");
+
+            ExportManager.ExportControlList(writer, panel2.Controls);
+
+            writer.WriteEndElement();
         }
     }
 }

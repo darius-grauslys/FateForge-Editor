@@ -93,7 +93,7 @@ namespace FateForge.Managers
         }
         public static void ObjectiveFieldUpdate_Action(Control control)
         {
-            ComboField _cf = new ComboField("Click", new object[] { "left", "right", "any" });
+            ComboField _cf = new ComboField("Click", "Left_Right_Answer Type");
             //TODO: Block combo
             //OPTIONAL:
             LocationField _lf = new LocationField();
@@ -106,7 +106,7 @@ namespace FateForge.Managers
         }
         public static void ObjectiveFieldUpdate_Craft(Control control)
         {
-            ComboField _cf = new ComboField("Item", ComboBoxValues.ComboBoxDictionary["Item Type"].ToArray());
+            ComboField _cf = new ComboField("Item", "Item Type");
             AmountField _af = new AmountField();
             control.Controls.Clear();
             control.Controls.Add(_cf);
@@ -114,7 +114,7 @@ namespace FateForge.Managers
         }
         public static void ObjectiveFieldUpdate_Smelt(Control control)
         {
-            ComboField _cf = new ComboField("Item", ComboBoxValues.ComboBoxDictionary["Item Type"].ToArray());
+            ComboField _cf = new ComboField("Item", "Item Type");
             AmountField _af = new AmountField();
             control.Controls.Clear();
             control.Controls.Add(_cf);
@@ -122,7 +122,7 @@ namespace FateForge.Managers
         }
         public static void ObjectiveFieldUpdate_Tame(Control control)
         {
-            ComboField _cf = new ComboField("Animal", ComboBoxValues.ComboBoxDictionary["Mob_Tameable Type"].ToArray());
+            ComboField _cf = new ComboField("Animal", "Mob_Tameable Type");
             AmountField _af = new AmountField();
             control.Controls.Clear();
             control.Controls.Add(_cf);
@@ -161,16 +161,16 @@ namespace FateForge.Managers
         public static void ObjectiveFieldUpdate_Password(Control control)
         {
             StringValueField _sf = new StringValueField();
-            ComboField _cf = new ComboField("Ignore Case?", ComboBoxValues.ComboBoxDictionary["YN_Answer Type"].ToArray());
+            ComboField _cf = new ComboField("Ignore Case?", "YN_Answer Type");
             control.Controls.Clear();
             control.Controls.Add(_sf);
             control.Controls.Add(_cf);
         }
         public static void ObjectiveFieldUpdate_Fish(Control control)
         {
-            ComboField _cf = new ComboField("Item", ComboBoxValues.ComboBoxDictionary["Item Type"].ToArray());
+            ComboField _cf = new ComboField("Item", "Item Type");
             AmountField _af = new AmountField();
-            ComboField _cf1 = new ComboField("Notify?", ComboBoxValues.ComboBoxDictionary["YN_Answer Type"].ToArray());
+            ComboField _cf1 = new ComboField("Notify?", "YN_Answer Type");
             control.Controls.Clear();
             control.Controls.Add(_cf);
             control.Controls.Add(_af);
@@ -190,7 +190,7 @@ namespace FateForge.Managers
         {
             //ComboField _cf = new ComboField("Item", ComboBoxValues.ComboBoxDictionary["Item Type"].ToArray());
             ItemField _if = new ItemField();
-            ComboField _cf1 = new ComboField("Enchantment", ComboBoxValues.ComboBoxDictionary["Enchantment Type"].ToArray());
+            ComboField _cf1 = new ComboField("Enchantment", "Enchantment Type");
             AmountField _af = new AmountField("Level");
             control.Controls.Clear();
             //control.Controls.Add(_cf);
@@ -206,7 +206,7 @@ namespace FateForge.Managers
         {
             ItemField _if = new ItemField();
             AmountField _af = new AmountField();
-            ComboField _cf = new ComboField("Notify?", ComboBoxValues.ComboBoxDictionary["YN_Answer Type"].ToArray());
+            ComboField _cf = new ComboField("Notify?", "YN_Answer Type");
             control.Controls.Clear();
             control.Controls.Add(_if);
             control.Controls.Add(_af);
@@ -294,7 +294,7 @@ namespace FateForge.Managers
         private static void EventFieldUpdate_Door(Control control)
         {
             LocationField _lf = new LocationField();
-            ComboField _cf = new ComboField("State", ComboBoxValues.ComboBoxDictionary["Lever_Answer Type"].ToArray());
+            ComboField _cf = new ComboField("State", "Lever_Answer Type");
             control.Controls.Clear();
             control.Controls.Add(_lf);
             control.Controls.Add(_cf);
@@ -340,7 +340,7 @@ namespace FateForge.Managers
         /// <param name="control"></param>
         private static void EventFieldUpdate_Journal(Control control)
         {
-            ComboField _cf = new ComboField("Mutate Type", ComboBoxValues.ComboBoxDictionary["AddDel_Answer Type"].ToArray());
+            ComboField _cf = new ComboField("Mutate Type", "AddDel_Answer Type");
             StringValueField _sf = new StringValueField("Entry Name");
             control.Controls.Clear();
             control.Controls.Add(_cf);
@@ -363,7 +363,7 @@ namespace FateForge.Managers
         private static void EventFieldUpdate_Lever(Control control)
         {
             LocationField _lf = new LocationField();
-            ComboField _cf = new ComboField("State", ComboBoxValues.ComboBoxDictionary["Lever_Answer Type"].ToArray());
+            ComboField _cf = new ComboField("State", "Lever_Answer Type");
             control.Controls.Clear();
             control.Controls.Add(_lf);
             control.Controls.Add(_cf);
@@ -437,10 +437,10 @@ namespace FateForge.Managers
         /// <param name="control"></param>
         private static void EventFieldUpdate_PotionEffect(Control control)
         {
-            ComboField _cf = new ComboField("Potion Type", ComboBoxValues.ComboBoxDictionary["Potion Type"].ToArray());
+            ComboField _cf = new ComboField("Potion Type", "Potion Type");
             AmountField _af = new AmountField("Duration");
             AmountField _af_1 = new AmountField("Power");
-            ComboField _cf_1 = new ComboField("Ambient?", ComboBoxValues.ComboBoxDictionary["YN_Answer_Type"].ToArray());
+            ComboField _cf_1 = new ComboField("Ambient?", "YN_Answer_Type");
             control.Controls.Clear();
             control.Controls.Add(_cf);
             control.Controls.Add(_af);
@@ -467,7 +467,7 @@ namespace FateForge.Managers
         /// <param name="control"></param>
         private static void EventFieldUpdate_SetBlock(Control control)
         {
-            ComboField _cf = new ComboField("Block Type", ComboBoxValues.ComboBoxDictionary["Block Type"].ToArray());
+            ComboField _cf = new ComboField("Block Type", "Block Type");
             LocationField _lf = new LocationField();
             control.Controls.Clear();
             control.Controls.Add(_cf);
@@ -495,7 +495,7 @@ namespace FateForge.Managers
         /// <param name="control"></param>
         private static void EventFieldUpdate_Tag(Control control)
         {
-            ComboField _cf = new ComboField("Mutate Type", ComboBoxValues.ComboBoxDictionary["AddDel_Answer Type"].ToArray());
+            ComboField _cf = new ComboField("Mutate Type", "AddDel_Answer Type");
             StringValueField _sf = new StringValueField("Operation");
             control.Controls.Clear();
             control.Controls.Add(_cf);
@@ -538,7 +538,7 @@ namespace FateForge.Managers
         /// <param name="control"></param>
         private static void EventFieldUpdate_Weather(Control control)
         {
-            ComboField _cf = new ComboField("Weather Type", ComboBoxValues.ComboBoxDictionary["Weather Type"].ToArray());
+            ComboField _cf = new ComboField("Weather Type", "Weather Type");
             control.Controls.Clear();
             control.Controls.Add(_cf);
         }

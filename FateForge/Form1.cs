@@ -9,6 +9,8 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
+using FateForge.Managers.IO;
+using System.IO;
 
 namespace FateForge
 {
@@ -17,18 +19,26 @@ namespace FateForge
         public static readonly int DEFAULT_NEST_SIZE = 485;
 
         private static ItemEditor _itemEditor = new ItemEditor();
+        private static SaveDialog _saveDialog = new SaveDialog();
 
         public static ItemEditor ItemEditor { get => _itemEditor; }
-        
+        private static SaveDialog SaveDialog { get => _saveDialog; set => _saveDialog = value; }
+
+
+        private QuestEditor _activeEditor;
+
+        public QuestEditor ActiveEditor { get => _activeEditor; set => _activeEditor = value; }
+
         private QuestEditor _newEditor;
         private TreeNode _activeNode;
+        
 
         public Form1()
         {
             InitializeComponent();
             NewPage();
             FieldUpdateManager.Initalize();
-
+            
             panel1.ControlAdded += (s, e) => CollapseManager.ResizeChilds(panel1);
             panel1.ControlRemoved += (s, e) => CollapseManager.ResizeChilds(panel1);
             panelConvoEditor.ControlAdded += (s, e) => CollapseManager.ResizeChilds(panelConvoEditor);
@@ -47,6 +57,13 @@ namespace FateForge
             Resize += (s, e) => {
                 CollapseManager.ResizeChilds(panelConvoEditor);
             };
+
+            questControl.TabIndexChanged += QuestControl_TabIndexChanged;
+        }
+
+        private void QuestControl_TabIndexChanged(object sender, EventArgs e)
+        {
+            ActiveEditor = (QuestEditor)questControl.SelectedTab.Controls[0];
         }
 
         private void newQuestToolStripMenuItem_Click(object sender, EventArgs e)
@@ -63,12 +80,28 @@ namespace FateForge
         private void NewPage()
         {
             _newEditor = new QuestEditor();
+            ActiveEditor = _newEditor;
             _newEditor.Dock = DockStyle.Fill;
             TabPage newPage = new TabPage();
             newPage.BackColor = Color.Transparent;
             newPage.Text = _newEditor.QuestName;
             newPage.Controls.Add(_newEditor);
             questControl.TabPages.Add(newPage);
+
+            SaveDialog.UpdateQuestMenu();
+        }
+
+        private void NewPage(QuestEditor _q)
+        {
+            ActiveEditor = _q;
+            _q.Dock = DockStyle.Fill;
+            TabPage newPage = new TabPage();
+            newPage.BackColor = Color.Transparent;
+            newPage.Text = _q.QuestName;
+            newPage.Controls.Add(_q);
+            questControl.TabPages.Add(newPage);
+
+            SaveDialog.UpdateQuestMenu();
         }
 
         private void itemEditorToolStripMenuItem_Click(object sender, EventArgs e)
@@ -158,6 +191,41 @@ namespace FateForge
                 ChangeConvoNodeFocus(_activeNode.Parent);
             }
             catch { }
+        }
+
+        private void exportToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            SaveFileDialog _diag = new SaveFileDialog();
+            _diag.DefaultExt = "xml";
+            _diag.ShowDialog();
+            if (Path.GetExtension(_diag.FileName) != ".xml")
+            {
+                MessageBox.Show("Selected file is not Xml!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            ExportManager.SerializeGenericBetonStructure(new StreamWriter(_diag.FileName), ActiveEditor);
+        }
+
+        private void toolStripMenuItem2_Click(object sender, EventArgs e)
+        {
+            SaveDialog.Show();
+        }
+
+        private void toolStripMenuItem1_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog _diag = new OpenFileDialog();
+            _diag.ShowDialog();
+            if (Path.GetExtension(_diag.FileName) != ".xml")
+            {
+                MessageBox.Show("Selected file is not Xml!", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            NewPage(ImportManager.DeserializeGenericBetonStructure(questControl.SelectedTab, new StreamReader(_diag.FileName))[0]);
         }
     }
 }

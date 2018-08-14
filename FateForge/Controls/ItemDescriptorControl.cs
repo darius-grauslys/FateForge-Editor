@@ -136,7 +136,7 @@ namespace FateForge
         /// <param name="e"></param>
         private void _newEntryPanel3_Click(object sender, EventArgs e)
         {
-            ComboField _cf = new ComboField("Type", ComboBoxValues.ComboBoxDictionary["Enchantment Type"].ToArray());
+            ComboField _cf = new ComboField("Type", "Enchantment Type");
             StringValueField _sf = new StringValueField("Val");
 
             DeletionFieldContainer _df = new DeletionFieldContainer(

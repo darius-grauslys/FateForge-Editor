@@ -92,7 +92,7 @@ namespace FateForge.Managers
         {
             c.Controls.Clear();
 
-            ComboField _cf = new ComboField("Achievement Type", ComboBoxValues.ComboBoxDictionary["Achievement Type"].ToArray());
+            ComboField _cf = new ComboField("Achievement Type", "Achievement Type");
 
             c.Controls.Add(_cf);
         }
@@ -106,7 +106,7 @@ namespace FateForge.Managers
         {
             c.Controls.Clear();
 
-            ComboField _cf = new ComboField("Potion Type", ComboBoxValues.ComboBoxDictionary["Potion Type"].ToArray());
+            ComboField _cf = new ComboField("Potion Type", "Potion Type");
 
             c.Controls.Add(_cf);
         }
@@ -126,7 +126,7 @@ namespace FateForge.Managers
         {
             c.Controls.Clear();
 
-            ComboField _cf = new ComboField("Weather Type", ComboBoxValues.ComboBoxDictionary["Weather Type"].ToArray());
+            ComboField _cf = new ComboField("Weather Type", "Weather Type");
 
             c.Controls.Add(_cf);
         }
@@ -183,7 +183,7 @@ namespace FateForge.Managers
             c.Controls.Clear();
 
             LocationField _lf = new LocationField();
-            ComboField _cf = new ComboField("Block Type", ComboBoxValues.ComboBoxDictionary["Block Type"].ToArray());
+            ComboField _cf = new ComboField("Block Type", "Block Type");
 
             _cf.Location = new System.Drawing.Point(0, _lf.Height + 2);
 
@@ -214,7 +214,7 @@ namespace FateForge.Managers
             {
                 _container.Controls.Add(
                     new DeletionFieldContainer(false, 
-                        new ComboField("Mob Type", ComboBoxValues.ComboBoxDictionary["Mob Type"].ToArray()),
+                        new ComboField("Mob Type", "Mob Type"),
                         new StringValueField("Name"),
                         new AmountField()
                     )

@@ -8,11 +8,16 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FateForge.Managers;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
 
 namespace FateForge
 {
-    public partial class ItemField : UserControl
+    public partial class ItemField : UserControl, IXmlSerializable
     {
+        public string SelectedValue { get => comboBox1.Text; private set => comboBox1.Text = value; }
+
         public ItemField()
         {
             InitializeComponent();
@@ -23,6 +28,21 @@ namespace FateForge
                 comboBox1.Items.Clear();
                 comboBox1.Items.AddRange(ItemManager.GetComboValues().ToArray());
             };
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            SelectedValue = reader.GetAttribute("SelectedValue");
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("SelectedValue", SelectedValue);
         }
 
         private void button1_Click(object sender, EventArgs e)

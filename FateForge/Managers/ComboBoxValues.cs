@@ -131,6 +131,10 @@ namespace FateForge.Managers
             { "Lever_Answer Type", new List<string>()
                 {
                     "on","off","toggle"
+            } },
+            { "Left_Right_Answer Type", new List<string>()
+                {
+                    "left", "right", "any"
             } }
 
         };

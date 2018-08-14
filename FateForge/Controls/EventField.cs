@@ -8,13 +8,19 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FateForge.Managers;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
+using FateForge.Managers.IO;
 
 namespace FateForge
 {
-    public partial class EventField : UserControl, IIndependentResize
+    public partial class EventField : UserControl, IIndependentResize, IXmlSerializable
     {
         private bool _isMin = false;
         private Size _initSize = new Size(0,0);
+
+        public string SelectedValue { get => comboBox1.Text; set => comboBox1.Text = value; }
 
         public EventField()
         {
@@ -82,6 +88,26 @@ namespace FateForge
         public int GetDesiredSize()
         {
             return _initSize.Height;
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            reader.MoveToContent();
+            reader.ReadStartElement();
+            SelectedValue = reader.GetAttribute("SelectedValue");
+            panel1.Controls.Clear();
+            panel1.Controls.AddRange(ImportManager.GetControlListFromXml(this, reader).ToArray());
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("SelectedValue", SelectedValue);
+            ExportManager.ExportControlList(writer, panel1.Controls);
         }
     }
 }

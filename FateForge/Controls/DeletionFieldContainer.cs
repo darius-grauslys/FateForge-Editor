@@ -8,10 +8,14 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using FateForge.Managers;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
+using FateForge.Managers.IO;
 
 namespace FateForge
 {
-    public partial class DeletionFieldContainer : UserControl, IIndependentResize
+    public partial class DeletionFieldContainer : UserControl, IIndependentResize, IXmlSerializable
     {
         public EventHandler Deletion;
         public EventHandler Clicked;
@@ -90,6 +94,21 @@ namespace FateForge
         public int GetDesiredSize()
         {
             return MinimumSize.Height;
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            panel1.Controls.AddRange(ImportManager.GetControlListFromXml(this, reader).ToArray());
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            ExportManager.ExportControlList(writer, panel1.Controls);
         }
     }
 }

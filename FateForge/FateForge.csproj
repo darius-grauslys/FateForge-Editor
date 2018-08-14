@@ -115,7 +115,13 @@
     <Compile Include="Controls\DeletionListControl.Designer.cs">
       <DependentUpon>DeletionListControl.cs</DependentUpon>
     </Compile>
-    <Compile Include="Interface1.cs" />
+    <Compile Include="DataTypes\IIndependentResize.cs" />
+    <Compile Include="SaveDialog.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="SaveDialog.Designer.cs">
+      <DependentUpon>SaveDialog.cs</DependentUpon>
+    </Compile>
     <Compile Include="IO\Export.cs" />
     <Compile Include="IO\Import.cs" />
     <Compile Include="ItemEditor.cs">
@@ -152,6 +158,8 @@
     <Compile Include="Managers\ComboBoxValues.cs" />
     <Compile Include="Managers\ConditionFieldManager.cs" />
     <Compile Include="Managers\FieldUpdateManager.cs" />
+    <Compile Include="Managers\IO\ExportManager.cs" />
+    <Compile Include="Managers\IO\ImportManager.cs" />
     <Compile Include="Managers\ItemManager.cs" />
     <Compile Include="Controls\ObjectiveField.cs">
       <SubType>UserControl</SubType>
@@ -219,6 +227,9 @@
     </EmbeddedResource>
     <EmbeddedResource Include="ConvoEditor.resx">
       <DependentUpon>ConvoEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="SaveDialog.resx">
+      <DependentUpon>SaveDialog.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ItemEditor.resx">
       <DependentUpon>ItemEditor.cs</DependentUpon>

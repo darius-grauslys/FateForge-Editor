@@ -16,6 +16,8 @@ namespace FateForge.Managers
         /// </summary>
         private static List<QuestEditor> QuestEditors { get => _questEditors; set => _questEditors = value; }
 
+        public static Action UpdateQuests;
+
         /// <summary>
         /// Get a quest name based on quest count and avoids conflicting names.
         /// </summary>
@@ -28,6 +30,23 @@ namespace FateForge.Managers
                 newNameAttempt = "_" + newNameAttempt;
             }
             return newNameAttempt;
+        }
+
+        public static string GetQuestDescription(string name)
+        {
+            return QuestEditors.Find((q) => q.QuestName == name).Description;
+        }
+
+        public static QuestEditor GetQuestEditor(string name)
+        {
+            return QuestEditors.Find((q) => q.QuestName == name);
+        }
+
+        public static List<string> GetQuestNames()
+        {
+            List<string> names = new List<string>();
+            QuestEditors.ForEach((q) => names.Add(q.QuestName));
+            return names;
         }
 
         public static bool IsNameExisting(string testName)

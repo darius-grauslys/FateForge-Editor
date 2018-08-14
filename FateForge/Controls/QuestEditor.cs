@@ -9,14 +9,19 @@ using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.Reflection;
 using FateForge.Managers;
+using System.Xml.Serialization;
+using System.Xml;
+using System.Xml.Schema;
+using FateForge.Managers.IO;
 
 namespace FateForge
 {
-    public partial class QuestEditor : UserControl
+    public partial class QuestEditor : UserControl, IXmlSerializable
     {
         ElementContainer _baseElementContainer = new ElementContainer();
 
-        public string QuestName { get => questNameTextbox.Text; }
+        public string QuestName { get => questNameTextbox.Text; private set => questNameTextbox.Text = value; }
+        public string Description { get => richTextBox1.Text; private set => richTextBox1.Text = value; }
 
         public QuestEditor()
         {
@@ -25,11 +30,11 @@ namespace FateForge
             questNameTextbox.TextChanged += QuestTitle_TextChanged;
             Resize += QuestEditor_Resize;
 
-            ObjectiveField _objf = new ObjectiveField();
+            //ObjectiveField _objf = new ObjectiveField();
 
-            panel2.Controls.Add(_objf);
+            //panel2.Controls.Add(_objf);
 
-            _objf.Resize += QuestEditor_Resize;
+            //_objf.Resize += QuestEditor_Resize;
             panel2.ControlRemoved += QuestEditor_Resize;
 
             questNameTextbox.Text = QuestManager.GetNewQuestName();
@@ -61,6 +66,7 @@ namespace FateForge
                 MessageBox.Show("This quest name is already in use! Please change to avoid issues.", "Warning", MessageBoxButtons.OK, MessageBoxIcon.Warning);
             }
             UpdateParentTagName();
+            QuestManager.UpdateQuests();
         }
 
         public void UpdateParentTagName()
@@ -100,6 +106,33 @@ namespace FateForge
             newControl.Resize += QuestEditor_Resize;
             panel2.Controls.Add(newControl);
             QuestEditor_Resize(null,null);
+        }
+
+        public XmlSchema GetSchema()
+        {
+            return null;
+        }
+
+        public void ReadXml(XmlReader reader)
+        {
+            QuestName = reader.GetAttribute("QuestName");
+            reader.ReadStartElement();
+            Description = reader.GetAttribute("DescriptionText");
+            reader.ReadStartElement();
+            panel2.Controls.AddRange(ImportManager.GetControlListFromXml(this, reader.ReadSubtree()).ToArray());
+        }
+
+        public void WriteXml(XmlWriter writer)
+        {
+            writer.WriteAttributeString("QuestName", QuestName);
+            writer.WriteStartElement("Description");
+            writer.WriteStartAttribute("DescriptionText", richTextBox1.Text);
+            writer.WriteEndAttribute();
+            writer.WriteEndElement();
+
+            writer.WriteStartElement("QuestContents");
+            ExportManager.ExportControlList(writer, panel2.Controls);
+            writer.WriteEndElement();
         }
     }
 }
