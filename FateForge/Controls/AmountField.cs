@@ -15,7 +15,7 @@ using FateForge.DataTypes;
 
 namespace FateForge
 {
-    public partial class AmountField : UserControl, IXmlSerializable
+    public partial class AmountField : UserControl, IXmlSerializable, IYamlExportable
     {
         public EventHandler AmountChanged;
         public decimal Amount { get => numericUpDown1.Value; set => numericUpDown1.Value = value; }
@@ -55,6 +55,36 @@ namespace FateForge
         {
             writer.WriteAttributeString("ValueName", ValueName);
             writer.WriteAttributeString("Amount", Amount.ToString());
+        }
+
+        public string GetYamlString_For_Objective()
+        {
+            return Amount.ToString();
+        }
+
+        public string GetYamlString_For_Event()
+        {
+            return Amount.ToString();
+        }
+
+        public string GetYamlString_For_Condition()
+        {
+            return Amount.ToString();
+        }
+
+        public string GetYamlString_As_Objective(int indexOf)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetYamlString_As_Event(int indexOf)
+        {
+            throw new NotImplementedException();
+        }
+
+        public string GetYamlString_As_Condition(int indexOf)
+        {
+            throw new NotImplementedException();
         }
     }
 }

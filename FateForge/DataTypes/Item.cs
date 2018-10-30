@@ -7,10 +7,11 @@ using FateForge.Managers;
 
 namespace FateForge.DataTypes
 {
-    public class Item
+    public class Item : IReferenceTableEntry
     {
         public EventHandler FieldsUpdated;
 
+        private string _alias;
         private string _type = "air";
         private int _id = 0;
         private int _data = 0;
@@ -40,6 +41,7 @@ namespace FateForge.DataTypes
         public string Name { get => _name; set
             {
                 _name = value;
+                Alias = _name.Substring(0,Name.Length/2);
                 FieldsUpdated(this, new EventArgs());
             }
         }
@@ -55,6 +57,8 @@ namespace FateForge.DataTypes
                 FieldsUpdated(this, new EventArgs());
             }
         }
+
+        public string Alias { get => _alias; set => _alias = value; }
 
         public Item(int _id=0, int _data=0, string _name="")
         {
@@ -98,6 +102,11 @@ namespace FateForge.DataTypes
             {
                 throw e;
             }
+        }
+
+        public void Reference()
+        {
+            ReferenceTable.AddReference(this);
         }
     }
 }

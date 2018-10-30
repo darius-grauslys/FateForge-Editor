@@ -12,15 +12,18 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Schema;
 using FateForge.Managers.IO;
+using FateForge.DataTypes;
 
 namespace FateForge
 {
-    public partial class ConditionField : UserControl, IIndependentResize, IXmlSerializable
+    public partial class ConditionField : UserControl, IIndependentResize, IXmlSerializable, IReferenceTableEntry
     {
         private int _privateSize = Form1.DEFAULT_NEST_SIZE/4;
         private Size _initSize = new Size(0,0);
+        private string _uniqueIdentifier;
 
         public string SelectedValue { get => comboBox2.Text; set => comboBox2.Text = value; }
+        public string UniqueIdentifier { get => _uniqueIdentifier; set => _uniqueIdentifier = value; }
 
         public ConditionField()
         {
@@ -94,6 +97,13 @@ namespace FateForge
         {
             writer.WriteAttributeString("SelectedValue", SelectedValue);
             ExportManager.ExportControlList(writer, panel1.Controls);
+        }
+
+        public void Reference()
+        {
+            ReferenceTable.AddReference(this);
+            foreach (IReferenceTableEntry referenceable in panel1.Controls)
+                referenceable.Reference();
         }
     }
 }

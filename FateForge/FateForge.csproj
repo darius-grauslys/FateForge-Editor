@@ -90,12 +90,19 @@
     <Compile Include="Controls\AmountField.Designer.cs">
       <DependentUpon>AmountField.cs</DependentUpon>
     </Compile>
-    <Compile Include="ConvoEditor.cs">
+    <Compile Include="Controls\JournalEntry.cs">
       <SubType>UserControl</SubType>
     </Compile>
-    <Compile Include="ConvoEditor.Designer.cs">
+    <Compile Include="Controls\JournalEntry.Designer.cs">
+      <DependentUpon>JournalEntry.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Editors\ConvoEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editors\ConvoEditor.Designer.cs">
       <DependentUpon>ConvoEditor.cs</DependentUpon>
     </Compile>
+    <Compile Include="DataTypes\IReferenceTableEntry.cs" />
     <Compile Include="DataTypes\Item.cs" />
     <Compile Include="Controls\DeletionFieldContainer.cs">
       <SubType>UserControl</SubType>
@@ -116,18 +123,37 @@
       <DependentUpon>DeletionListControl.cs</DependentUpon>
     </Compile>
     <Compile Include="DataTypes\IIndependentResize.cs" />
+    <Compile Include="DataTypes\IYamlExportable.cs" />
+    <Compile Include="DataTypes\NPC.cs" />
+    <Compile Include="Editors\JournalEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editors\JournalEditor.Designer.cs">
+      <DependentUpon>JournalEditor.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Managers\ConvoManager.cs" />
+    <Compile Include="Managers\EventFieldManager.cs" />
+    <Compile Include="Managers\GenericManager.cs" />
+    <Compile Include="Managers\JournalEntryManager.cs" />
+    <Compile Include="Managers\NPCManager.cs" />
+    <Compile Include="Managers\ObjectiveManager.cs" />
+    <Compile Include="Managers\ReferenceTable.cs" />
+    <Compile Include="Editors\NPCEditor.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
+    <Compile Include="Editors\NPCEditor.Designer.cs">
+      <DependentUpon>NPCEditor.cs</DependentUpon>
+    </Compile>
     <Compile Include="SaveDialog.cs">
       <SubType>Form</SubType>
     </Compile>
     <Compile Include="SaveDialog.Designer.cs">
       <DependentUpon>SaveDialog.cs</DependentUpon>
     </Compile>
-    <Compile Include="IO\Export.cs" />
-    <Compile Include="IO\Import.cs" />
-    <Compile Include="ItemEditor.cs">
+    <Compile Include="Editors\ItemEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="ItemEditor.Designer.cs">
+    <Compile Include="Editors\ItemEditor.Designer.cs">
       <DependentUpon>ItemEditor.cs</DependentUpon>
     </Compile>
     <Compile Include="Controls\ItemField.cs">
@@ -195,10 +221,11 @@
     <Compile Include="Controls\StringValueField.Designer.cs">
       <DependentUpon>StringValueField.cs</DependentUpon>
     </Compile>
-    <Compile Include="WindowedEditor.cs">
+    <Compile Include="Utility\YamlWriter.cs" />
+    <Compile Include="Editors\WindowedEditor.cs">
       <SubType>Form</SubType>
     </Compile>
-    <Compile Include="WindowedEditor.Designer.cs">
+    <Compile Include="Editors\WindowedEditor.Designer.cs">
       <DependentUpon>WindowedEditor.cs</DependentUpon>
     </Compile>
     <EmbeddedResource Include="Controls\ComboField.resx">
@@ -225,13 +252,22 @@
     <EmbeddedResource Include="Controls\DeletionListControl.resx">
       <DependentUpon>DeletionListControl.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ConvoEditor.resx">
+    <EmbeddedResource Include="Controls\JournalEntry.resx">
+      <DependentUpon>JournalEntry.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editors\ConvoEditor.resx">
       <DependentUpon>ConvoEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editors\JournalEditor.resx">
+      <DependentUpon>JournalEditor.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Editors\NPCEditor.resx">
+      <DependentUpon>NPCEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="SaveDialog.resx">
       <DependentUpon>SaveDialog.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="ItemEditor.resx">
+    <EmbeddedResource Include="Editors\ItemEditor.resx">
       <DependentUpon>ItemEditor.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="Controls\ItemField.resx">
@@ -270,7 +306,7 @@
     <EmbeddedResource Include="Controls\StringValueField.resx">
       <DependentUpon>StringValueField.cs</DependentUpon>
     </EmbeddedResource>
-    <EmbeddedResource Include="WindowedEditor.resx">
+    <EmbeddedResource Include="Editors\WindowedEditor.resx">
       <DependentUpon>WindowedEditor.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">

@@ -12,15 +12,18 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Schema;
 using FateForge.Managers.IO;
+using FateForge.DataTypes;
 
 namespace FateForge
 {
-    public partial class EventField : UserControl, IIndependentResize, IXmlSerializable
+    public partial class EventField : UserControl, IIndependentResize, IXmlSerializable, IReferenceTableEntry
     {
         private bool _isMin = false;
         private Size _initSize = new Size(0,0);
+        private string _uniqueIdentifier;
 
         public string SelectedValue { get => comboBox1.Text; set => comboBox1.Text = value; }
+        public string UniqueIdentifier { get => _uniqueIdentifier; internal set => _uniqueIdentifier = value; }
 
         public EventField()
         {
@@ -29,8 +32,13 @@ namespace FateForge
             _initSize = MinimumSize;
 
             comboBox1.TextChanged += ComboBox1_SelectedValueChanged;
+
+            comboBox1.Items.AddRange(FieldUpdateManager.EventFieldHandlers.Keys.ToArray());
+
             panel1.ControlAdded += (s, o) => { CollapseManager.ResizeChilds(panel1); IndependentResize();  };
             panel1.ControlRemoved += (s, o) => { CollapseManager.ResizeChilds(panel1); IndependentResize(); };
+
+            EventFieldManager.AddEvent(this);
         }
 
         private void ComboBox1_SelectedValueChanged(object sender, EventArgs e)
@@ -108,6 +116,13 @@ namespace FateForge
         {
             writer.WriteAttributeString("SelectedValue", SelectedValue);
             ExportManager.ExportControlList(writer, panel1.Controls);
+        }
+
+        public void Reference()
+        {
+            ReferenceTable.AddReference(this);
+            foreach (IReferenceTableEntry reference in panel1.Controls)
+                reference.Reference();
         }
     }
 }

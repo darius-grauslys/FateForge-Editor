@@ -12,16 +12,24 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Schema;
 using FateForge.Managers.IO;
+using FateForge.DataTypes;
 
 namespace FateForge
 {
-    public partial class ObjectiveField : UserControl, IIndependentResize, IXmlSerializable
+    public partial class ObjectiveField : UserControl, IIndependentResize, IXmlSerializable, IYamlExportable, IReferenceTableEntry
     {
         private Size _initSize = new Size(0,0);
         private List<Panel> _panelPackage = new List<Panel>();
+        private string _oldName;
+
+        private List<EventField> _referencedEventFields = new List<EventField>();
+        private List<ConditionField> _referencedConditionFields = new List<ConditionField>();
 
         public string SelectedValue { get => comboBox1.Text; private set => comboBox1.Text = value; }
-        public string ObjectiveName { get => textBox1.Text; private set => textBox1.Text = value; }
+        public string ObjectiveName { get => textBox1.Text; internal set => textBox1.Text = value; }
+        public List<EventField> ReferencedEventFields { get => _referencedEventFields.ToList(); private set => _referencedEventFields = value; }
+        public List<ConditionField> ReferencedConditionFields { get => _referencedConditionFields.ToList(); private set => _referencedConditionFields = value; }
+        internal string OldName { get => _oldName; set => _oldName = value; }
 
         public ObjectiveField(bool _nameReadOnly=false)
         {
@@ -42,6 +50,26 @@ namespace FateForge
             panel4.ControlRemoved += (s, o) => { PanelResize(panel4, 20); };
             panel4.ControlAdded += (s, o) => { PanelResize(panel4, 20); };
             comboBox1.SelectedValueChanged += ComboBox1_SelectedValueChanged;
+
+            ObjectiveManager.AddObjective(this);
+
+            textBox1.TextChanged += TextBox1_TextChanged;
+        }
+
+        private void TextBox1_TextChanged(object sender, EventArgs e)
+        {
+            if (textBox1.Text == OldName)
+                return;
+            try
+            {
+                ObjectiveManager.Rename(this);
+                OldName = textBox1.Text;
+            }
+            catch (ArgumentException)
+            {
+                MessageBox.Show("Invalid name. Names starting with \"obj_\" is for the editor only.", "Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                textBox1.Text = OldName;
+            }
         }
 
         private void ComboBox1_SelectedValueChanged(object sender, EventArgs e)
@@ -133,7 +161,9 @@ namespace FateForge
             //    panel3.Controls.Add(escapeButton);
             //    return;
             //}
-            AddNewEventField(new EventField());
+            EventField _ef = new EventField();
+            ReferencedEventFields.Add(_ef);
+            AddNewEventField(_ef);
         }
 
         private void AddNewEventField(EventField _ef)
@@ -177,11 +207,14 @@ namespace FateForge
         private void button1_Click(object sender, EventArgs e)
         {
             Parent.Controls.Remove(this);
+            ObjectiveManager.RemoveObjective(this);
         }
 
         private void button8_Click(object sender, EventArgs e)
         {
-            AddNewConditionField(new ConditionField());
+            ConditionField _cf = new ConditionField();
+            ReferencedConditionFields.Add(_cf);
+            AddNewConditionField(_cf);
         }
 
         private void AddNewConditionField(ConditionField _cf)
@@ -300,6 +333,68 @@ namespace FateForge
             ExportManager.ExportControlList(writer, panel2.Controls);
 
             writer.WriteEndElement();
+        }
+
+        public string GetYamlString_For_Objective()
+        {
+            return "";
+        }
+
+        public string GetYamlString_For_Event()
+        {
+            return "";
+        }
+
+        public string GetYamlString_For_Condition()
+        {
+            return "";
+        }
+
+        public string GetYamlString_As_Objective(int indexOf)
+        {
+            //Important to know that we only write the scalar value. Not the full scalar.
+
+            string yaml = "";
+            string eventNameYaml = "";
+            if (ObjectiveName == "")
+                ObjectiveName = indexOf + "_INVALID_NAME";
+
+
+            foreach (EventField e in panel4.Controls)
+                eventNameYaml += ";" + e.UniqueIdentifier;
+            eventNameYaml = eventNameYaml.Substring(1, eventNameYaml.Length);
+
+            yaml = String.Format(FieldUpdateManager.ObjectiveYamlExport[SelectedValue](panel2.Controls.Cast<Control>().ToList()), eventNameYaml);
+
+            return "";
+        }
+
+        public string GetYamlString_As_Event(int indexOf)
+        {
+            //DO NOT IMPLEMENT
+            return "";
+        }
+
+        public string GetYamlString_As_Condition(int indexOf)
+        {
+            //DO NOT IMPLEMENT
+            return "";
+        }
+
+        public void Reference()
+        {
+            ReferenceTable.AddReference(this);
+            ReferenceChildsOnly();
+        }
+
+        public void ReferenceChildsOnly()
+        {
+            foreach (IReferenceTableEntry refe in panel2.Controls)
+                refe.Reference();
+            foreach (IReferenceTableEntry refe in panel3.Controls)
+                refe.Reference();
+            foreach (IReferenceTableEntry refe in panel4.Controls)
+                refe.Reference();
         }
     }
 }

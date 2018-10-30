@@ -12,10 +12,11 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Schema;
 using FateForge.Managers.IO;
+using FateForge.DataTypes;
 
 namespace FateForge
 {
-    public partial class DeletionFieldContainer : UserControl, IIndependentResize, IXmlSerializable
+    public partial class DeletionFieldContainer : UserControl, IIndependentResize, IXmlSerializable, IReferenceTableEntry
     {
         public EventHandler Deletion;
         public EventHandler Clicked;
@@ -26,6 +27,7 @@ namespace FateForge
         //public ControlCollection ManagedControls { get => panel1.Controls; }
 
         private bool _testAllClicks = false;
+        public ControlCollection Contents { get => panel1.Controls; }
 
         public DeletionFieldContainer( bool _testAllClicks = false, params Control[] _addedControls)
         {
@@ -51,6 +53,11 @@ namespace FateForge
             }
 
             ParentChanged += (s, e) => { if (Parent != null) CollapseManager.IndependentResize(this, panel1); };
+        }
+
+        public void ForceDeletion()
+        {
+            button1_Click(this, null);
         }
 
         public void IndependentResize()
@@ -109,6 +116,12 @@ namespace FateForge
         public void WriteXml(XmlWriter writer)
         {
             ExportManager.ExportControlList(writer, panel1.Controls);
+        }
+
+        public void Reference()
+        {
+            foreach (IReferenceTableEntry refe in panel1.Controls)
+                refe.Reference();
         }
     }
 }

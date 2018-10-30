@@ -22,7 +22,9 @@ namespace FateForge
         /// <summary>
         /// The value of the string field.
         /// </summary>
-        public string TextField { get => textBox1.Text; private set => textBox1.Text = value; }
+        public string TextField { get => textBox1.Text; internal set => textBox1.Text = value; }
+
+        public event EventHandler ValueChanged { add => textBox1.TextChanged += value; remove => textBox1.TextChanged -= value; }
 
         public StringValueField(string _valueName="String Val")
         {

@@ -86,7 +86,7 @@ namespace FateForge.Managers
             foreach (Control c in dependents.Controls)
                 height += (c.MinimumSize.Height == 0) ? c.Height : c.MinimumSize.Height;
 
-            interest.Size = new Size(((interest == null) ? 0 : interest.Parent.Width - 8), height);
+            interest.Size = new Size(((interest.Parent == null) ? 0 : interest.Parent.Width - 8), ((interest.Parent != null) ? ((interest.Parent.Height < height) ? interest.Parent.Height : height) : height));
         }
         
         public static void IndependentResize(Control interest, List<Panel> dependents, int offset = 12)
@@ -128,7 +128,7 @@ namespace FateForge.Managers
         /// </summary>
         /// <param name="interest"></param>
         /// <param name="panel"></param>
-        public static void WrapIndependentSize(Control interest, Panel panel, int height = 40)
+        public static void WrapIndependentSize(Control interest, Panel panel, int height = 40, int offset = 12)
         {
             int initHeight = height;
 
@@ -140,7 +140,7 @@ namespace FateForge.Managers
                 if (interest is IIndependentResize)
                     height = ((IIndependentResize)interest).GetDesiredSize();
 
-            interest.MinimumSize = new Size(interest.Width, height);
+            interest.MinimumSize = new Size(((interest.Parent != null) ? interest.Parent.Width - offset : interest.Width), height);
             interest.Size = interest.MinimumSize;
         }
         

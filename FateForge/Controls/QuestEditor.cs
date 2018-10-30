@@ -13,15 +13,29 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Schema;
 using FateForge.Managers.IO;
+using FateForge.DataTypes;
 
 namespace FateForge
 {
-    public partial class QuestEditor : UserControl, IXmlSerializable
+    public partial class QuestEditor : UserControl, IXmlSerializable, IReferenceTableEntry
     {
         ElementContainer _baseElementContainer = new ElementContainer();
 
+        //private Dictionary<Item, int> _referencedItems = new Dictionary<Item, int>();
+        //private Dictionary<TreeNode, int> _referencedConvos = new Dictionary<TreeNode, int>();
+        //private List<ObjectiveField> _referencedObjectiveFields = new List<ObjectiveField>();
+        //private List<EventField> _referencedEventFields = new List<EventField>();
+        //private List<ConditionField> _referencedConditionFields = new List<ConditionField>();
+
         public string QuestName { get => questNameTextbox.Text; private set => questNameTextbox.Text = value; }
         public string Description { get => richTextBox1.Text; private set => richTextBox1.Text = value; }
+        //private Dictionary<Item, int> ReferencedItems { get => _referencedItems; set => _referencedItems = value; }
+        //public List<Item> QuestItems { get => ReferencedItems.Keys.ToList(); }
+        //public List<TreeNode> ReferencedConvos { get => ReferencedConvos1.Keys.ToList(); }
+        //public List<ObjectiveField> ReferencedObjectiveFields { get => _referencedObjectiveFields.ToList(); private set => _referencedObjectiveFields = value; }
+        //public List<EventField> ReferencedEventFields { get => _referencedEventFields.ToList(); private set => _referencedEventFields = value; }
+        //public List<ConditionField> ReferencedConditionFields { get => _referencedConditionFields.ToList(); private set => _referencedConditionFields = value; }
+        //private Dictionary<TreeNode, int> ReferencedConvos1 { get => _referencedConvos; set => _referencedConvos = value; }
 
         public QuestEditor()
         {
@@ -42,6 +56,34 @@ namespace FateForge
             QuestManager.AddNewQuest(this);
             //panel2.ControlAdded += Panel2_ControlAdded;
         }
+
+        //public void AddItemToReference(Item _item)
+        //{
+        //    if (!IsItemInReference(_item))
+        //        ReferencedItems.Add(_item, 1);
+        //    else
+        //        ReferencedItems[_item]++;
+        //}
+
+        //public void RemoveItemFromReference(Item _item)
+        //{
+        //    if (!ReferencedItems.ContainsKey(_item))
+        //        return;
+        //    if (ReferencedItems[_item] > 1)
+        //        ReferencedItems[_item]--;
+        //    else
+        //        ReferencedItems.Remove(_item);
+        //}
+
+        //public bool IsItemInReference(Item item)
+        //{
+        //    return ReferencedItems.ContainsKey(item);
+        //}
+
+        //public bool IsItemInReference(string str)
+        //{
+        //    return ReferencedItems.Keys.ToList().Exists((i) => i.Name == str);
+        //}
 
         private void Panel2_ControlAdded(object sender, ControlEventArgs e)
         {
@@ -106,6 +148,12 @@ namespace FateForge
             newControl.Resize += QuestEditor_Resize;
             panel2.Controls.Add(newControl);
             QuestEditor_Resize(null,null);
+        }
+
+        public void Reference()
+        {
+            foreach (IReferenceTableEntry refe in panel2.Controls)
+                refe.Reference();
         }
 
         public XmlSchema GetSchema()

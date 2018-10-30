@@ -46,19 +46,49 @@ namespace FateForge
 
             activeNodeTextboxName.TextChanged += (s, e) =>
             {
-                if (_activeNode != null)
+                if (_activeNode != null && activeNodeTextboxName.Text != _activeNode.Text)
                 {
-                    _activeNode.Text = activeNodeTextboxName.Text;
+                    try
+                    {
+                        ConvoManager.RenameConvoNode(_activeNode, activeNodeTextboxName.Text);
+                    }
+                    catch (ArgumentException)
+                    {
+                        MessageBox.Show("\"newConvoNode_\" is reserved for the editor! Use different root.","Error", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                        activeNodeTextboxName.Text = _activeNode.Text;
+                    }
+                    //_activeNode.Text = activeNodeTextboxName.Text;
                 }
             };
 
             treeView1.NodeMouseClick += (s, e) => ChangeConvoNodeFocus(e.Node);
+            treeView2.NodeMouseClick += (s, e) => ChangeJournalNodeFocus(e.Node);
+            treeView3.NodeMouseClick += (s, e) => ChangeNpcNodeFocus(e.Node);
+
+            NPCManager.NpcAdded += NewNPCEntry;
 
             Resize += (s, e) => {
                 CollapseManager.ResizeChilds(panelConvoEditor);
             };
 
             questControl.TabIndexChanged += QuestControl_TabIndexChanged;
+        }
+
+        public void ChangeJournalNodeFocus(TreeNode node)
+        {
+            panel5.Controls.Clear();
+            panel5.Controls.Add((Control)node.Tag);
+            textBox2.Text = node.Text;
+        }
+
+        public void ChangeNpcNodeFocus(TreeNode node)
+        {
+            if (node.Tag != null)
+                if (node.Tag is Control)
+                {
+                    panel11.Controls.Clear();
+                    panel11.Controls.Add(node.Tag as Control);
+                }
         }
 
         private void QuestControl_TabIndexChanged(object sender, EventArgs e)
@@ -177,11 +207,24 @@ namespace FateForge
 
         private void newConvoButton_Click(object sender, EventArgs e)
         {
-            TreeNode node = new TreeNode("NewConvo" + treeView1.Nodes.Count);
+            TreeNode node = new TreeNode("");
+
+            ConvoManager.AddConvoNode(node);
 
             node.Tag = new ConvoEditor(this, null, node) { Dock = DockStyle.Fill };
 
             treeView1.Nodes.Add(node);
+        }
+
+        public void RemoveConvo(TreeNode _repNode)
+        {
+            treeView1.Nodes.Remove(_repNode);
+            ConvoManager.RemoveConvoNode(_repNode);
+        }
+
+        public void RemoveJournal(TreeNode _journal)
+        {
+            treeView2.Nodes.Remove(_journal);
         }
 
         private void button2_Click(object sender, EventArgs e)
@@ -226,6 +269,53 @@ namespace FateForge
                 return;
             }
             NewPage(ImportManager.DeserializeGenericBetonStructure(questControl.SelectedTab, new StreamReader(_diag.FileName))[0]);
+        }
+
+        private void button4_Click(object sender, EventArgs e)
+        {
+
+            TreeNode node = new TreeNode("NewEntry" + treeView2.Nodes.Count);
+
+            node.Tag = new JournalEditor(this, node) { Dock = DockStyle.Fill };
+
+            treeView2.Nodes.Add(node);
+        }
+
+        private void nPCToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        private void fileYMLToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            OpenFileDialog diag = new OpenFileDialog();
+            diag.ShowDialog();
+            ImportManager.ImportNPC_YAML(diag.FileName);
+        }
+
+        private void newNPCButton_Click(object sender, EventArgs e)
+        {
+            NPCManager.AddNPC(new NPC());
+        }
+
+        private void NewNPCEntry(NPC _npc)
+        {
+            TreeNode _repNode = new TreeNode() { Text = _npc.Name };
+            NPCEditor _editor = new NPCEditor(_repNode, _npc) { Dock = DockStyle.Fill };
+            _repNode.Tag = _editor;
+
+            _editor.Disposed += (s, e1) => { treeView3.Nodes.Remove(_repNode); };
+
+            treeView3.Nodes.Add(_repNode);
+        }
+
+        private void textBox2_TextChanged(object sender, EventArgs e)
+        {
+            if (treeView2.SelectedNode == null)
+                return;
+            treeView2.SelectedNode.Text = textBox2.Text;
+            JournalEditor _editor = treeView2.SelectedNode.Tag as JournalEditor;
+            _editor.JournalCollectionName = textBox2.Text;
         }
     }
 }

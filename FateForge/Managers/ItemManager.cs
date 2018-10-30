@@ -41,6 +41,14 @@ namespace FateForge.Managers
             UpdatedList?.Invoke(new object(), new EventArgs());
         }
 
+        internal static Item GetItem(string text)
+        {
+            int indexOf = Items.FindIndex((i) => i.Name == text);
+            if (indexOf < 0)
+                return null;
+            return Items[indexOf];
+        }
+
         public static void RemoveItem(int index)
         {
             try
@@ -74,6 +82,11 @@ namespace FateForge.Managers
                 InsertComboValue(index, s + "_1");
             else
                 ComboValues.Insert(index, s);
+        }
+
+        internal static List<Item> GetItems()
+        {
+            return Items.ToList();
         }
 
         private static void RemoveComboValue(int index)

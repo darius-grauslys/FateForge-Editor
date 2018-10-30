@@ -1,4 +1,5 @@
-﻿using System;
+﻿using FateForge.DataTypes;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq;
@@ -34,6 +35,9 @@ namespace FateForge.Managers.IO
         /// </summary>
         private static Dictionary<string, ImportFunction> ImportFunctions { get => _importFunctions; set => _importFunctions = value; }
 
+
+        #region Import Functions
+        //Consider redoing all this shit.
         private static Control ImportAmountField(Control parent, XmlReader r)
         {
             AmountField _af = new AmountField();
@@ -121,7 +125,9 @@ namespace FateForge.Managers.IO
             _sf.ReadXml(r);
             return _sf;
         }
-        
+        #endregion
+
+        #region XML Import
         public static Control GetControlFromXML(Control parent, string XmlElementName, XmlReader r)
         {
             return ImportFunctions[XmlElementName](parent, r);
@@ -160,5 +166,89 @@ namespace FateForge.Managers.IO
             xr.Close();
             return _qes;
         }
+        #endregion
+
+        #region YAML Import
+
+        public static void ImportNPC_YAML(string yamlConfigPath)
+        {
+            bool atContent = false;
+            bool write = false;
+            string token = "";
+            int indexParse = 0;
+            Stack<NPC> _npcs = new Stack<NPC>();
+            IEnumerable<string> lines = File.ReadLines(yamlConfigPath);
+            foreach (string line in lines)
+            {
+                if (!atContent && line != "npc:")
+                    continue;
+                else
+                    atContent = true;
+                if (line.Length >= 6)
+                    if (line.Substring(0, 3) != "   ")
+                    {
+                        _npcs.Push(new NPC());
+                        token = "";
+                        write = false;
+                        for (indexParse = 0; indexParse < line.Length; indexParse++)
+                        {
+                            if (line[indexParse] == '\'')
+                            {
+                                write = !write;
+                                if (!write)
+                                    break;
+                                continue;
+                            }
+                            if (write)
+                                token += line[indexParse];
+                        }
+                        _npcs.Peek().Id = Int16.Parse(token);
+                    }
+                if (line.Contains(" name:"))
+                {
+                    _npcs.Peek().Name = ParseToScalar(line);
+                }
+                else if (line.Contains(" world:"))
+                {
+                    _npcs.Peek().World = ParseToScalar(line);
+                }
+                else if (line.Contains(" x:"))
+                {
+                    string gimme = ParseToScalar(line, true);
+                    _npcs.Peek().X = Decimal.Parse( ParseToScalar(line, true) );
+                }
+                else if (line.Contains(" y:"))
+                {
+                    _npcs.Peek().Y = Decimal.Parse( ParseToScalar(line, true) );
+                }
+                else if (line.Contains(" z:"))
+                {
+                    _npcs.Peek().Z = Decimal.Parse( ParseToScalar(line, true) );
+                }
+            }
+            foreach (NPC _npc in _npcs)
+            {
+                NPCManager.AddNPC(_npc);
+            }
+        }
+
+        private static string ParseToScalar(string parsingLine, bool ommitQuotation=false)
+        {
+            string token = "";
+            for (int i = parsingLine.Length-1; i > 0; i--)
+            {
+                if (ommitQuotation && parsingLine[i] == '\'')
+                    continue;
+                if (parsingLine[i] == ':')
+                {
+                    token = token.Substring(1, token.Length-1);
+                    return token;
+                }
+                token = token.Insert(0, parsingLine[i].ToString());
+            }
+            return "";
+        }
+
+        #endregion
     }
 }

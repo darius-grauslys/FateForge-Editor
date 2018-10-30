@@ -31,6 +31,9 @@
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.saveToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
             this.exportToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.dataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.itemEditorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,6 +43,16 @@
             this.newCompassLocationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newMobToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newNPCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.loadDataToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
+            this.conversationsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.journalEntriesToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.itemsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.compassToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.mobsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.nPCToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileXMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.fileYMLToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.questsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.newQuestToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.tabControl1 = new System.Windows.Forms.TabControl();
@@ -48,22 +61,17 @@
             this.questControl = new System.Windows.Forms.TabControl();
             this.tabPage2 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel3 = new System.Windows.Forms.TableLayoutPanel();
+            this.panelConvoEditor = new System.Windows.Forms.Panel();
             this.tableLayoutPanel4 = new System.Windows.Forms.TableLayoutPanel();
             this.newConvoButton = new System.Windows.Forms.Button();
             this.treeView1 = new System.Windows.Forms.TreeView();
             this.activeNodeTextboxName = new System.Windows.Forms.TextBox();
-            this.tableLayoutPanel5 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel6 = new System.Windows.Forms.TableLayoutPanel();
-            this.tableLayoutPanel7 = new System.Windows.Forms.TableLayoutPanel();
-            this.button3 = new System.Windows.Forms.Button();
-            this.button2 = new System.Windows.Forms.Button();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.panelConvoEditor = new System.Windows.Forms.Panel();
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel8 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel9 = new System.Windows.Forms.TableLayoutPanel();
-            this.newJournalEntryButton = new System.Windows.Forms.Button();
-            this.panel4 = new System.Windows.Forms.Panel();
+            this.button4 = new System.Windows.Forms.Button();
+            this.treeView2 = new System.Windows.Forms.TreeView();
+            this.textBox2 = new System.Windows.Forms.TextBox();
             this.panel5 = new System.Windows.Forms.Panel();
             this.tabPage4 = new System.Windows.Forms.TabPage();
             this.tableLayoutPanel1 = new System.Windows.Forms.TableLayoutPanel();
@@ -87,11 +95,9 @@
             this.tableLayoutPanel14 = new System.Windows.Forms.TableLayoutPanel();
             this.tableLayoutPanel15 = new System.Windows.Forms.TableLayoutPanel();
             this.newNPCButton = new System.Windows.Forms.Button();
-            this.panel10 = new System.Windows.Forms.Panel();
+            this.treeView3 = new System.Windows.Forms.TreeView();
             this.panel11 = new System.Windows.Forms.Panel();
-            this.toolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.exportManyAllToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             this.tabControl1.SuspendLayout();
             this.tabPage1.SuspendLayout();
@@ -99,9 +105,6 @@
             this.tabPage2.SuspendLayout();
             this.tableLayoutPanel3.SuspendLayout();
             this.tableLayoutPanel4.SuspendLayout();
-            this.tableLayoutPanel5.SuspendLayout();
-            this.tableLayoutPanel6.SuspendLayout();
-            this.tableLayoutPanel7.SuspendLayout();
             this.tabPage3.SuspendLayout();
             this.tableLayoutPanel8.SuspendLayout();
             this.tableLayoutPanel9.SuspendLayout();
@@ -140,7 +143,8 @@
             this.toolStripMenuItem2,
             this.toolStripMenuItem1,
             this.toolStripMenuItem3,
-            this.exportToolStripMenuItem});
+            this.exportToolStripMenuItem,
+            this.exportManyAllToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
             this.fileToolStripMenuItem.Size = new System.Drawing.Size(37, 20);
             this.fileToolStripMenuItem.Text = "File";
@@ -152,17 +156,38 @@
             this.saveToolStripMenuItem.Text = "Save";
             this.saveToolStripMenuItem.Click += new System.EventHandler(this.saveToolStripMenuItem_Click);
             // 
+            // toolStripMenuItem2
+            // 
+            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem2.Text = "Save Many/All";
+            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
+            // 
+            // toolStripMenuItem1
+            // 
+            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
+            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem1.Text = "Load";
+            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
+            // 
+            // toolStripMenuItem3
+            // 
+            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
+            this.toolStripMenuItem3.Text = "Load Many/All";
+            // 
             // exportToolStripMenuItem
             // 
             this.exportToolStripMenuItem.Name = "exportToolStripMenuItem";
             this.exportToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
-            this.exportToolStripMenuItem.Text = "Export Manager";
+            this.exportToolStripMenuItem.Text = "Export";
             this.exportToolStripMenuItem.Click += new System.EventHandler(this.exportToolStripMenuItem_Click);
             // 
             // dataToolStripMenuItem
             // 
             this.dataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
-            this.itemEditorToolStripMenuItem});
+            this.itemEditorToolStripMenuItem,
+            this.loadDataToolStripMenuItem});
             this.dataToolStripMenuItem.Name = "dataToolStripMenuItem";
             this.dataToolStripMenuItem.Size = new System.Drawing.Size(43, 20);
             this.dataToolStripMenuItem.Text = "Data";
@@ -177,7 +202,7 @@
             this.newMobToolStripMenuItem,
             this.newNPCToolStripMenuItem});
             this.itemEditorToolStripMenuItem.Name = "itemEditorToolStripMenuItem";
-            this.itemEditorToolStripMenuItem.Size = new System.Drawing.Size(110, 22);
+            this.itemEditorToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
             this.itemEditorToolStripMenuItem.Text = "Editors";
             this.itemEditorToolStripMenuItem.Click += new System.EventHandler(this.itemEditorToolStripMenuItem_Click);
             // 
@@ -222,6 +247,79 @@
             this.newNPCToolStripMenuItem.Size = new System.Drawing.Size(199, 22);
             this.newNPCToolStripMenuItem.Text = "New NPC";
             this.newNPCToolStripMenuItem.Click += new System.EventHandler(this.newNPCToolStripMenuItem_Click);
+            // 
+            // loadDataToolStripMenuItem
+            // 
+            this.loadDataToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.toolStripMenuItem4,
+            this.conversationsToolStripMenuItem,
+            this.journalEntriesToolStripMenuItem,
+            this.itemsToolStripMenuItem,
+            this.compassToolStripMenuItem,
+            this.mobsToolStripMenuItem,
+            this.nPCToolStripMenuItem});
+            this.loadDataToolStripMenuItem.Name = "loadDataToolStripMenuItem";
+            this.loadDataToolStripMenuItem.Size = new System.Drawing.Size(127, 22);
+            this.loadDataToolStripMenuItem.Text = "Load Data";
+            // 
+            // toolStripMenuItem4
+            // 
+            this.toolStripMenuItem4.Name = "toolStripMenuItem4";
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(151, 22);
+            this.toolStripMenuItem4.Text = "Load Directory";
+            // 
+            // conversationsToolStripMenuItem
+            // 
+            this.conversationsToolStripMenuItem.Name = "conversationsToolStripMenuItem";
+            this.conversationsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.conversationsToolStripMenuItem.Text = "Conversations";
+            // 
+            // journalEntriesToolStripMenuItem
+            // 
+            this.journalEntriesToolStripMenuItem.Name = "journalEntriesToolStripMenuItem";
+            this.journalEntriesToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.journalEntriesToolStripMenuItem.Text = "Journal Entries";
+            // 
+            // itemsToolStripMenuItem
+            // 
+            this.itemsToolStripMenuItem.Name = "itemsToolStripMenuItem";
+            this.itemsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.itemsToolStripMenuItem.Text = "Items";
+            // 
+            // compassToolStripMenuItem
+            // 
+            this.compassToolStripMenuItem.Name = "compassToolStripMenuItem";
+            this.compassToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.compassToolStripMenuItem.Text = "Compass";
+            // 
+            // mobsToolStripMenuItem
+            // 
+            this.mobsToolStripMenuItem.Name = "mobsToolStripMenuItem";
+            this.mobsToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.mobsToolStripMenuItem.Text = "Mobs";
+            // 
+            // nPCToolStripMenuItem
+            // 
+            this.nPCToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.fileXMLToolStripMenuItem,
+            this.fileYMLToolStripMenuItem});
+            this.nPCToolStripMenuItem.Name = "nPCToolStripMenuItem";
+            this.nPCToolStripMenuItem.Size = new System.Drawing.Size(151, 22);
+            this.nPCToolStripMenuItem.Text = "NPC";
+            this.nPCToolStripMenuItem.Click += new System.EventHandler(this.nPCToolStripMenuItem_Click);
+            // 
+            // fileXMLToolStripMenuItem
+            // 
+            this.fileXMLToolStripMenuItem.Name = "fileXMLToolStripMenuItem";
+            this.fileXMLToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.fileXMLToolStripMenuItem.Text = "File XML";
+            // 
+            // fileYMLToolStripMenuItem
+            // 
+            this.fileYMLToolStripMenuItem.Name = "fileYMLToolStripMenuItem";
+            this.fileYMLToolStripMenuItem.Size = new System.Drawing.Size(119, 22);
+            this.fileYMLToolStripMenuItem.Text = "File YML";
+            this.fileYMLToolStripMenuItem.Click += new System.EventHandler(this.fileYMLToolStripMenuItem_Click);
             // 
             // questsToolStripMenuItem
             // 
@@ -303,19 +401,27 @@
             // 
             this.tableLayoutPanel3.CellBorderStyle = System.Windows.Forms.TableLayoutPanelCellBorderStyle.InsetDouble;
             this.tableLayoutPanel3.ColumnCount = 2;
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 25.22613F));
-            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 74.77387F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 180F));
+            this.tableLayoutPanel3.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
+            this.tableLayoutPanel3.Controls.Add(this.panelConvoEditor, 0, 0);
             this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel4, 0, 0);
-            this.tableLayoutPanel3.Controls.Add(this.tableLayoutPanel5, 1, 0);
             this.tableLayoutPanel3.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel3.Location = new System.Drawing.Point(2, 2);
             this.tableLayoutPanel3.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel3.Name = "tableLayoutPanel3";
             this.tableLayoutPanel3.RowCount = 1;
             this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel3.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 400F));
             this.tableLayoutPanel3.Size = new System.Drawing.Size(745, 403);
             this.tableLayoutPanel3.TabIndex = 0;
+            // 
+            // panelConvoEditor
+            // 
+            this.panelConvoEditor.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.panelConvoEditor.Location = new System.Drawing.Point(188, 5);
+            this.panelConvoEditor.Margin = new System.Windows.Forms.Padding(2);
+            this.panelConvoEditor.Name = "panelConvoEditor";
+            this.panelConvoEditor.Size = new System.Drawing.Size(552, 393);
+            this.panelConvoEditor.TabIndex = 2;
             // 
             // tableLayoutPanel4
             // 
@@ -332,13 +438,14 @@
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel4.Size = new System.Drawing.Size(181, 393);
+            this.tableLayoutPanel4.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 20F));
+            this.tableLayoutPanel4.Size = new System.Drawing.Size(176, 393);
             this.tableLayoutPanel4.TabIndex = 0;
             // 
             // newConvoButton
             // 
             this.newConvoButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
-            this.newConvoButton.Location = new System.Drawing.Point(34, 2);
+            this.newConvoButton.Location = new System.Drawing.Point(32, 2);
             this.newConvoButton.Margin = new System.Windows.Forms.Padding(2);
             this.newConvoButton.Name = "newConvoButton";
             this.newConvoButton.Size = new System.Drawing.Size(112, 45);
@@ -353,7 +460,7 @@
             this.treeView1.Location = new System.Drawing.Point(2, 79);
             this.treeView1.Margin = new System.Windows.Forms.Padding(2);
             this.treeView1.Name = "treeView1";
-            this.treeView1.Size = new System.Drawing.Size(177, 312);
+            this.treeView1.Size = new System.Drawing.Size(172, 312);
             this.treeView1.TabIndex = 1;
             // 
             // activeNodeTextboxName
@@ -361,95 +468,8 @@
             this.activeNodeTextboxName.Dock = System.Windows.Forms.DockStyle.Fill;
             this.activeNodeTextboxName.Location = new System.Drawing.Point(3, 52);
             this.activeNodeTextboxName.Name = "activeNodeTextboxName";
-            this.activeNodeTextboxName.Size = new System.Drawing.Size(175, 20);
+            this.activeNodeTextboxName.Size = new System.Drawing.Size(170, 20);
             this.activeNodeTextboxName.TabIndex = 2;
-            // 
-            // tableLayoutPanel5
-            // 
-            this.tableLayoutPanel5.ColumnCount = 1;
-            this.tableLayoutPanel5.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Controls.Add(this.tableLayoutPanel6, 0, 0);
-            this.tableLayoutPanel5.Controls.Add(this.panelConvoEditor, 0, 1);
-            this.tableLayoutPanel5.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel5.Location = new System.Drawing.Point(193, 5);
-            this.tableLayoutPanel5.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel5.Name = "tableLayoutPanel5";
-            this.tableLayoutPanel5.RowCount = 2;
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 34F));
-            this.tableLayoutPanel5.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel5.Size = new System.Drawing.Size(547, 393);
-            this.tableLayoutPanel5.TabIndex = 1;
-            // 
-            // tableLayoutPanel6
-            // 
-            this.tableLayoutPanel6.ColumnCount = 2;
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 60F));
-            this.tableLayoutPanel6.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Controls.Add(this.tableLayoutPanel7, 0, 0);
-            this.tableLayoutPanel6.Controls.Add(this.textBox1, 1, 0);
-            this.tableLayoutPanel6.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.tableLayoutPanel6.Location = new System.Drawing.Point(2, 2);
-            this.tableLayoutPanel6.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel6.Name = "tableLayoutPanel6";
-            this.tableLayoutPanel6.RowCount = 1;
-            this.tableLayoutPanel6.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel6.Size = new System.Drawing.Size(543, 30);
-            this.tableLayoutPanel6.TabIndex = 0;
-            // 
-            // tableLayoutPanel7
-            // 
-            this.tableLayoutPanel7.ColumnCount = 2;
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Controls.Add(this.button3, 1, 0);
-            this.tableLayoutPanel7.Controls.Add(this.button2, 0, 0);
-            this.tableLayoutPanel7.Location = new System.Drawing.Point(2, 2);
-            this.tableLayoutPanel7.Margin = new System.Windows.Forms.Padding(2);
-            this.tableLayoutPanel7.Name = "tableLayoutPanel7";
-            this.tableLayoutPanel7.RowCount = 1;
-            this.tableLayoutPanel7.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 50F));
-            this.tableLayoutPanel7.Size = new System.Drawing.Size(56, 24);
-            this.tableLayoutPanel7.TabIndex = 0;
-            // 
-            // button3
-            // 
-            this.button3.Location = new System.Drawing.Point(30, 2);
-            this.button3.Margin = new System.Windows.Forms.Padding(2);
-            this.button3.Name = "button3";
-            this.button3.Size = new System.Drawing.Size(23, 19);
-            this.button3.TabIndex = 1;
-            this.button3.Text = ">";
-            this.button3.UseVisualStyleBackColor = true;
-            // 
-            // button2
-            // 
-            this.button2.Location = new System.Drawing.Point(2, 2);
-            this.button2.Margin = new System.Windows.Forms.Padding(2);
-            this.button2.Name = "button2";
-            this.button2.Size = new System.Drawing.Size(23, 19);
-            this.button2.TabIndex = 0;
-            this.button2.Text = "<";
-            this.button2.UseVisualStyleBackColor = true;
-            this.button2.Click += new System.EventHandler(this.button2_Click);
-            // 
-            // textBox1
-            // 
-            this.textBox1.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.textBox1.Location = new System.Drawing.Point(62, 2);
-            this.textBox1.Margin = new System.Windows.Forms.Padding(2);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.ReadOnly = true;
-            this.textBox1.Size = new System.Drawing.Size(479, 20);
-            this.textBox1.TabIndex = 1;
-            // 
-            // panelConvoEditor
-            // 
-            this.panelConvoEditor.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panelConvoEditor.Location = new System.Drawing.Point(2, 36);
-            this.panelConvoEditor.Margin = new System.Windows.Forms.Padding(2);
-            this.panelConvoEditor.Name = "panelConvoEditor";
-            this.panelConvoEditor.Size = new System.Drawing.Size(543, 355);
-            this.panelConvoEditor.TabIndex = 1;
             // 
             // tabPage3
             // 
@@ -484,40 +504,49 @@
             // 
             this.tableLayoutPanel9.ColumnCount = 1;
             this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
-            this.tableLayoutPanel9.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
-            this.tableLayoutPanel9.Controls.Add(this.newJournalEntryButton, 0, 0);
-            this.tableLayoutPanel9.Controls.Add(this.panel4, 0, 1);
+            this.tableLayoutPanel9.Controls.Add(this.button4, 0, 0);
+            this.tableLayoutPanel9.Controls.Add(this.treeView2, 0, 2);
+            this.tableLayoutPanel9.Controls.Add(this.textBox2, 0, 1);
             this.tableLayoutPanel9.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel9.Location = new System.Drawing.Point(5, 5);
             this.tableLayoutPanel9.Margin = new System.Windows.Forms.Padding(2);
             this.tableLayoutPanel9.Name = "tableLayoutPanel9";
-            this.tableLayoutPanel9.RowCount = 2;
+            this.tableLayoutPanel9.RowCount = 3;
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 49F));
+            this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Absolute, 28F));
             this.tableLayoutPanel9.RowStyles.Add(new System.Windows.Forms.RowStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel9.Size = new System.Drawing.Size(176, 397);
-            this.tableLayoutPanel9.TabIndex = 0;
+            this.tableLayoutPanel9.TabIndex = 2;
             // 
-            // newJournalEntryButton
+            // button4
             // 
-            this.newJournalEntryButton.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.newJournalEntryButton.Location = new System.Drawing.Point(2, 2);
-            this.newJournalEntryButton.Margin = new System.Windows.Forms.Padding(2);
-            this.newJournalEntryButton.Name = "newJournalEntryButton";
-            this.newJournalEntryButton.Size = new System.Drawing.Size(172, 45);
-            this.newJournalEntryButton.TabIndex = 0;
-            this.newJournalEntryButton.Text = "New Entry";
-            this.newJournalEntryButton.UseVisualStyleBackColor = true;
+            this.button4.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom)));
+            this.button4.Location = new System.Drawing.Point(32, 2);
+            this.button4.Margin = new System.Windows.Forms.Padding(2);
+            this.button4.Name = "button4";
+            this.button4.Size = new System.Drawing.Size(112, 45);
+            this.button4.TabIndex = 0;
+            this.button4.Text = "New Entry";
+            this.button4.UseVisualStyleBackColor = true;
+            this.button4.Click += new System.EventHandler(this.button4_Click);
             // 
-            // panel4
+            // treeView2
             // 
-            this.panel4.AutoScroll = true;
-            this.panel4.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel4.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel4.Location = new System.Drawing.Point(2, 51);
-            this.panel4.Margin = new System.Windows.Forms.Padding(2);
-            this.panel4.Name = "panel4";
-            this.panel4.Size = new System.Drawing.Size(172, 344);
-            this.panel4.TabIndex = 1;
+            this.treeView2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView2.Location = new System.Drawing.Point(2, 79);
+            this.treeView2.Margin = new System.Windows.Forms.Padding(2);
+            this.treeView2.Name = "treeView2";
+            this.treeView2.Size = new System.Drawing.Size(172, 316);
+            this.treeView2.TabIndex = 1;
+            // 
+            // textBox2
+            // 
+            this.textBox2.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.textBox2.Location = new System.Drawing.Point(3, 52);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(170, 20);
+            this.textBox2.TabIndex = 2;
+            this.textBox2.TextChanged += new System.EventHandler(this.textBox2_TextChanged);
             // 
             // panel5
             // 
@@ -796,7 +825,7 @@
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Percent, 100F));
             this.tableLayoutPanel15.ColumnStyles.Add(new System.Windows.Forms.ColumnStyle(System.Windows.Forms.SizeType.Absolute, 15F));
             this.tableLayoutPanel15.Controls.Add(this.newNPCButton, 0, 0);
-            this.tableLayoutPanel15.Controls.Add(this.panel10, 0, 1);
+            this.tableLayoutPanel15.Controls.Add(this.treeView3, 0, 1);
             this.tableLayoutPanel15.Dock = System.Windows.Forms.DockStyle.Fill;
             this.tableLayoutPanel15.Location = new System.Drawing.Point(2, 2);
             this.tableLayoutPanel15.Margin = new System.Windows.Forms.Padding(2);
@@ -817,17 +846,16 @@
             this.newNPCButton.TabIndex = 0;
             this.newNPCButton.Text = "New NPC";
             this.newNPCButton.UseVisualStyleBackColor = true;
+            this.newNPCButton.Click += new System.EventHandler(this.newNPCButton_Click);
             // 
-            // panel10
+            // treeView3
             // 
-            this.panel10.AutoScroll = true;
-            this.panel10.BackColor = System.Drawing.SystemColors.ControlLight;
-            this.panel10.Dock = System.Windows.Forms.DockStyle.Fill;
-            this.panel10.Location = new System.Drawing.Point(2, 51);
-            this.panel10.Margin = new System.Windows.Forms.Padding(2);
-            this.panel10.Name = "panel10";
-            this.panel10.Size = new System.Drawing.Size(172, 350);
-            this.panel10.TabIndex = 1;
+            this.treeView3.BackColor = System.Drawing.SystemColors.ControlLight;
+            this.treeView3.Dock = System.Windows.Forms.DockStyle.Fill;
+            this.treeView3.Location = new System.Drawing.Point(3, 52);
+            this.treeView3.Name = "treeView3";
+            this.treeView3.Size = new System.Drawing.Size(170, 348);
+            this.treeView3.TabIndex = 1;
             // 
             // panel11
             // 
@@ -839,25 +867,11 @@
             this.panel11.Size = new System.Drawing.Size(565, 403);
             this.panel11.TabIndex = 1;
             // 
-            // toolStripMenuItem1
+            // exportManyAllToolStripMenuItem
             // 
-            this.toolStripMenuItem1.Name = "toolStripMenuItem1";
-            this.toolStripMenuItem1.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem1.Text = "Load";
-            this.toolStripMenuItem1.Click += new System.EventHandler(this.toolStripMenuItem1_Click);
-            // 
-            // toolStripMenuItem2
-            // 
-            this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem2.Text = "Save Many/All";
-            this.toolStripMenuItem2.Click += new System.EventHandler(this.toolStripMenuItem2_Click);
-            // 
-            // toolStripMenuItem3
-            // 
-            this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(180, 22);
-            this.toolStripMenuItem3.Text = "Load Many/All";
+            this.exportManyAllToolStripMenuItem.Name = "exportManyAllToolStripMenuItem";
+            this.exportManyAllToolStripMenuItem.Size = new System.Drawing.Size(180, 22);
+            this.exportManyAllToolStripMenuItem.Text = "Export Many/All";
             // 
             // Form1
             // 
@@ -879,13 +893,10 @@
             this.tableLayoutPanel3.ResumeLayout(false);
             this.tableLayoutPanel4.ResumeLayout(false);
             this.tableLayoutPanel4.PerformLayout();
-            this.tableLayoutPanel5.ResumeLayout(false);
-            this.tableLayoutPanel6.ResumeLayout(false);
-            this.tableLayoutPanel6.PerformLayout();
-            this.tableLayoutPanel7.ResumeLayout(false);
             this.tabPage3.ResumeLayout(false);
             this.tableLayoutPanel8.ResumeLayout(false);
             this.tableLayoutPanel9.ResumeLayout(false);
+            this.tableLayoutPanel9.PerformLayout();
             this.tabPage4.ResumeLayout(false);
             this.tableLayoutPanel1.ResumeLayout(false);
             this.tableLayoutPanel2.ResumeLayout(false);
@@ -938,16 +949,7 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel4;
         private System.Windows.Forms.Button newConvoButton;
         private System.Windows.Forms.TreeView treeView1;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel5;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel6;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel7;
-        private System.Windows.Forms.Button button3;
-        private System.Windows.Forms.Button button2;
-        private System.Windows.Forms.TextBox textBox1;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel8;
-        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
-        private System.Windows.Forms.Button newJournalEntryButton;
-        private System.Windows.Forms.Panel panel4;
         private System.Windows.Forms.Panel panel5;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel10;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel11;
@@ -962,13 +964,28 @@
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel14;
         private System.Windows.Forms.TableLayoutPanel tableLayoutPanel15;
         private System.Windows.Forms.Button newNPCButton;
-        private System.Windows.Forms.Panel panel10;
         private System.Windows.Forms.Panel panel11;
-        private System.Windows.Forms.Panel panelConvoEditor;
         private System.Windows.Forms.TextBox activeNodeTextboxName;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem2;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem1;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem3;
+        private System.Windows.Forms.TableLayoutPanel tableLayoutPanel9;
+        private System.Windows.Forms.Button button4;
+        private System.Windows.Forms.TreeView treeView2;
+        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.Panel panelConvoEditor;
+        private System.Windows.Forms.ToolStripMenuItem loadDataToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem4;
+        private System.Windows.Forms.ToolStripMenuItem conversationsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem journalEntriesToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem itemsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem compassToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem mobsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem nPCToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileXMLToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem fileYMLToolStripMenuItem;
+        private System.Windows.Forms.TreeView treeView3;
+        private System.Windows.Forms.ToolStripMenuItem exportManyAllToolStripMenuItem;
     }
 }
 

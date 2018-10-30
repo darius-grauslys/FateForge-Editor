@@ -12,13 +12,17 @@ using System.Xml.Serialization;
 using System.Xml;
 using System.Xml.Schema;
 using FateForge.Managers.IO;
+using FateForge.DataTypes;
 
 namespace FateForge
 {
-    public partial class DeletionListControl : UserControl, IXmlSerializable
+    public partial class DeletionListControl : UserControl, IXmlSerializable, IIndependentResize, IReferenceTableEntry
     {
-        private List<Type> _subFields = new List<Type>();
-        private List<List<object>> _args = new List<List<object>>();
+        public delegate DeletionFieldContainer NewItemHandler();
+        public NewItemHandler NewItemHandle;
+
+        public ControlCollection DeletionNodes { get => panel1.Controls; }
+
         private bool _checkAllClicks;
 
         /// <summary>
@@ -51,16 +55,34 @@ namespace FateForge
 
         private void button1_Click(object sender, EventArgs e)
         {
-            List<Control> _controls = new List<Control>();
-            for (int i = 0; i < _subFields.Count; i++)
-            {
-                Control child = (Control)Activator.CreateInstance(_subFields[i], _args[i].ToArray());
-                _controls.Add(child);
-            }
 
-            DeletionFieldContainer _df = new DeletionFieldContainer(_checkAllClicks, _controls.ToArray());
+            DeletionFieldContainer _df = NewItemHandle();
+
+            Resize += (s, e1) => { _df.IndependentResize(); };
 
             panel1.Controls.Add(_df);
+        }
+
+        public void IndependentResize()
+        {
+            CollapseManager.IndependentResize(this, panel1);
+        }
+
+        public void IndependentCollapse(bool collapseState)
+        {
+            List<IIndependentResize> resizers = CollapseManager.ScanForResizers(panel1.Controls);
+            CollapseManager.IndependentCollapse(collapseState, this, new List<Panel> { panel1 }, 36, resizers.ToArray());
+        }
+
+        public int GetDesiredSize()
+        {
+            return Parent.Width - 10;
+        }
+
+        public void Reference()
+        {
+            foreach (IReferenceTableEntry refe in panel1.Controls)
+                refe.Reference();
         }
     }
 }

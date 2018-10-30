@@ -112,6 +112,10 @@ namespace FateForge.Managers
                     "tipped_arrow","unknown","vex","villager","vindicator","weather","witch","wither","wither_skeleton","wither_skull",
                     "wolf","zombie","zombie_horse","zombie_villager"
             } },
+            { "Breedmob Type", new List<string>()
+                {
+                    "cow","horse","sheep","pig","chicken","mushroom_cow","ocelot","rabbit","llama","turtle"
+            } },
             { "Mob_Tameable Type", new List<string>()
                 {
                     "horse","ocelot","wolf"
@@ -123,6 +127,10 @@ namespace FateForge.Managers
             { "Journal_Answer Type", new List<string>()
                 {
                     "add","del","update"
+            } },
+            { "Objective_Answer Type", new List<string>()
+                {
+                    "add","remove","complete"
             } },
             { "AddDel_Answer Type", new List<string>()
                 {
